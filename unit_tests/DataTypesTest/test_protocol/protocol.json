@@ -1,0 +1,417 @@
+{
+    "protocol_types": [
+        {
+            "name": "TEST_U8BIT_LIST_DEP",
+            "fields": [
+                {
+                    "name": "len",
+                    "type": "U8",
+                    "dependee": "True"
+                },
+                {
+                    "name": "ANY_U8BIT_LIST_DEP",
+                    "type": "U8[len]"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U8BIT_LIST",
+            "fields": [
+                {
+                    "name": "ANY_U8BIT_LIST",
+                    "type": "U8[5]"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U8BIT_ANY",
+            "fields": [
+                {
+                    "name": "ANY_U8BIT",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U8BIT_MIN",
+            "fields": [
+                {
+                    "name": "MIN_U8BIT",
+                    "value": "0",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U8BIT_MID",
+            "fields": [
+                {
+                    "name": "MID_U8BIT",
+                    "value": "0xef",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U8BIT_MAX",
+            "fields": [
+                {
+                    "name": "MAX_U8BIT",
+                    "value": "0xff",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I8BIT_ANY",
+            "fields": [
+                {
+                    "name": "ANY_I8BIT",
+                    "type": "I8"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I8BIT_MIN",
+            "fields": [
+                {
+                    "name": "MIN_I8BIT",
+                    "value": "0",
+                    "type": "I8"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I8BIT_MID",
+            "fields": [
+                {
+                    "name": "MID_I8BIT",
+                    "value": "0xef",
+                    "type": "I8"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I8_MAX",
+            "fields": [
+                {
+                    "name": "MAX_I8BIT",
+                    "value": "0xff",
+                    "type": "I8"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U16BIT_ANY",
+            "fields": [
+                {
+                    "name": "ANY_U16BIT",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U16BIT_MIN",
+            "fields": [
+                {
+                    "name": "MIN_U16BIT",
+                    "value": "0",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U16BIT_MID",
+            "fields": [
+                {
+                    "name": "MID_U16BIT",
+                    "value": "0xefff",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U16BIT_MAX",
+            "fields": [
+                {
+                    "name": "MAX_U16BIT",
+                    "value": "0xffff",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I16BIT_ANY",
+            "fields": [
+                {
+                    "name": "ANY_I16BIT",
+                    "type": "I16"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I16BIT_MIN",
+            "fields": [
+                {
+                    "name": "MIN_I16BIT",
+                    "value": "0",
+                    "type": "I16"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I16BIT_MID",
+            "fields": [
+                {
+                    "name": "MID_I16BIT",
+                    "value": "0xefff",
+                    "type": "I16"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I16BIT_MAX",
+            "fields": [
+                {
+                    "name": "MAX_I16BIT",
+                    "value": "0xffff",
+                    "type": "I16"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U24BIT_ANY",
+            "fields": [
+                {
+                    "name": "ANY_U24BIT",
+                    "type": "U24"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U24BIT_MIN",
+            "fields": [
+                {
+                    "name": "MIN_U24BIT",
+                    "value": "0",
+                    "type": "U24"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U24BIT_MID",
+            "fields": [
+                {
+                    "name": "MID_U24BIT",
+                    "value": "0xefffff",
+                    "type": "U24"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U24BIT_MAX",
+            "fields": [
+                {
+                    "name": "MAX_U24BIT",
+                    "value": "0xffffff",
+                    "type": "U24"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I24BIT_ANY",
+            "fields": [
+                {
+                    "name": "ANY_I24BIT",
+                    "type": "I24"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I24BIT_MIN",
+            "fields": [
+                {
+                    "name": "MIN_I24BIT",
+                    "value": "0",
+                    "type": "I24"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I24BIT_MID",
+            "fields": [
+                {
+                    "name": "MID_I24BIT",
+                    "value": "0xefffff",
+                    "type": "I24"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I24BIT_MAX",
+            "fields": [
+                {
+                    "name": "MAX_I24BIT",
+                    "value": "0xffffff",
+                    "type": "I24"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U32BIT_ANY",
+            "fields": [
+                {
+                    "name": "ANY_U32BIT",
+                    "type": "U32"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U32BIT_MIN",
+            "fields": [
+                {
+                    "name": "MIN_U32BIT",
+                    "value": "0",
+                    "type": "U32"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U32BIT_MID",
+            "fields": [
+                {
+                    "name": "MID_U32BIT",
+                    "value": "0xefffffff",
+                    "type": "U32"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U32BIT_MAX",
+            "fields": [
+                {
+                    "name": "MAX_U32BIT",
+                    "value": "0xffffffff",
+                    "type": "U32"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I32BIT_ANY",
+            "fields": [
+                {
+                    "name": "ANY_I32BIT",
+                    "type": "I32"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I32BIT_MIN",
+            "fields": [
+                {
+                    "name": "MIN_I32BIT",
+                    "value": "0",
+                    "type": "I32"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I32BIT_MID",
+            "fields": [
+                {
+                    "name": "MID_I32BIT",
+                    "value": "0xefffffff",
+                    "type": "I32"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I32BIT_MAX",
+            "fields": [
+                {
+                    "name": "MAX_I32BIT",
+                    "value": "0xffffffff",
+                    "type": "I32"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U64BIT_ANY",
+            "fields": [
+                {
+                    "name": "ANY_U64BIT",
+                    "type": "U64"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U64BIT_MIN",
+            "fields": [
+                {
+                    "name": "MIN_U64BIT",
+                    "value": "0",
+                    "type": "U64"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U64BIT_MID",
+            "fields": [
+                {
+                    "name": "MID_U64BIT",
+                    "value": "0xefffffffffffffff",
+                    "type": "U64"
+                }
+            ]
+        },
+        {
+            "name": "TEST_U64BIT_MAX",
+            "fields": [
+                {
+                    "name": "MAX_U64BIT",
+                    "value": "0xffffffffffffffff",
+                    "type": "U64"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I64BIT_ANY",
+            "fields": [
+                {
+                    "name": "ANY_I64BIT",
+                    "type": "I64"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I64BIT_MIN",
+            "fields": [
+                {
+                    "name": "MIN_I64BIT",
+                    "value": "0",
+                    "type": "I64"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I64BIT_MID",
+            "fields": [
+                {
+                    "name": "MID_I64BIT",
+                    "value": "0xefffffffffffffff",
+                    "type": "I64"
+                }
+            ]
+        },
+        {
+            "name": "TEST_I64BIT_MAX",
+            "fields": [
+                {
+                    "name": "MAX_I64BIT",
+                    "value": "0xffffffffffffffff",
+                    "type": "I64"
+                }
+            ]
+        }
+    ]
+}

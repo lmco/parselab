@@ -1,0 +1,268 @@
+{
+    "protocol_types": [
+        {
+            "name": "CAN_TRANS_DATA",
+            "fields": [
+                {
+                    "name": "SOF",
+                    "value": "0",
+                    "type": "U1"
+                },
+                {
+                    "name": "ID",
+                    "type": "U11"
+                },
+                {
+                    "name": "RTR",
+                    "value": "0",
+                    "type": "U1"
+                },
+                {
+                    "name": "RESERVED",
+                    "value": "0",
+                    "type": "U2"
+                },
+                {
+                    "name": "DLC",
+                    "value": "(0,8)",
+                    "type": "U4",
+                    "dependee": "true"
+                },
+                {
+                    "name": "DATA",
+                    "type": "U8[DLC]",
+                    "dependency": "DLC"
+                },
+                {
+                    "name": "CRC",
+                    "type": "U15"
+                },
+                {
+                    "name": "CRC_D",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "ACK",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "ACK_D",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "EOF",
+                    "value": "0b1111111",
+                    "type": "U7"
+                },
+                {
+                    "name": "pad",
+                    "value": "0",
+                    "type": "U4",
+                    "strict": "true",
+                    "comment": "Parser looks for an end of stream, but a CAN message is required to have padding since it does not end on a byte boundary; The value is used as a message ID for easier processing with testcase generation"
+                }
+            ]
+        },
+        {
+            "name": "CAN_RECV_DATA",
+            "fields": [
+                {
+                    "name": "SOF",
+                    "value": "0",
+                    "type": "U1"
+                },
+                {
+                    "name": "ID",
+                    "type": "U11"
+                },
+                {
+                    "name": "RTR",
+                    "value": "0",
+                    "type": "U1"
+                },
+                {
+                    "name": "RESERVED",
+                    "value": "0",
+                    "type": "U2"
+                },
+                {
+                    "name": "DLC",
+                    "value": "(0,8)",
+                    "type": "U4",
+                    "dependee": "true"
+                },
+                {
+                    "name": "DATA",
+                    "type": "U8[DLC]",
+                    "dependency": "DLC"
+                },
+                {
+                    "name": "CRC",
+                    "type": "U15"
+                },
+                {
+                    "name": "CRC_D",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "ACK",
+                    "value": "0",
+                    "type": "U1"
+                },
+                {
+                    "name": "ACK_D",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "EOF",
+                    "value": "0b1111111",
+                    "type": "U7"
+                },
+                {
+                    "name": "pad",
+                    "value": "1",
+                    "type": "U4",
+                    "strict": "true",
+                    "comment": "Parser looks for an end of stream, but a CAN message is required to have padding since it does not end on a byte boundary; The value is used as a message ID for easier processing with testcase generation"
+                }
+            ]
+        },
+        {
+            "name": "CAN_TRANS_REMOTE",
+            "fields": [
+                {
+                    "name": "SOF",
+                    "value": "0",
+                    "type": "U1"
+                },
+                {
+                    "name": "ID",
+                    "type": "U11"
+                },
+                {
+                    "name": "RTR",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "RESERVED",
+                    "value": "0",
+                    "type": "U2"
+                },
+                {
+                    "name": "DLC",
+                    "value": "(0,8)",
+                    "type": "U4",
+                    "dependee": "true"
+                },
+                {
+                    "name": "DATA",
+                    "type": "U8[DLC]",
+                    "dependency": "DLC"
+                },
+                {
+                    "name": "CRC",
+                    "type": "U15"
+                },
+                {
+                    "name": "CRC_D",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "ACK",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "ACK_D",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "EOF",
+                    "value": "0b1111111",
+                    "type": "U7"
+                },
+                {
+                    "name": "pad",
+                    "value": "2",
+                    "type": "U4",
+                    "strict": "true",
+                    "comment": "Parser looks for an end of stream, but a CAN message is required to have padding since it does not end on a byte boundary; The value is used as a message ID for easier processing with testcase generation"
+                }
+            ]
+        },
+        {
+            "name": "CAN_RECV_REMOTE",
+            "fields": [
+                {
+                    "name": "SOF",
+                    "value": "0",
+                    "type": "U1"
+                },
+                {
+                    "name": "ID",
+                    "type": "U11"
+                },
+                {
+                    "name": "RTR",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "RESERVED",
+                    "value": "0",
+                    "type": "U2"
+                },
+                {
+                    "name": "DLC",
+                    "value": "(0,8)",
+                    "type": "U4",
+                    "dependee": "true"
+                },
+                {
+                    "name": "DATA",
+                    "type": "U8[DLC]",
+                    "dependency": "DLC"
+                },
+                {
+                    "name": "CRC",
+                    "type": "U15"
+                },
+                {
+                    "name": "CRC_D",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "ACK",
+                    "value": "0",
+                    "type": "U1"
+                },
+                {
+                    "name": "ACK_D",
+                    "value": "1",
+                    "type": "U1"
+                },
+                {
+                    "name": "EOF",
+                    "value": "0b1111111",
+                    "type": "U7"
+                },
+                {
+                    "name": "pad",
+                    "value": "3",
+                    "type": "U4",
+                    "strict": "true",
+                    "comment": "Parser looks for an end of stream, but a CAN message is required to have padding since it does not end on a byte boundary; The value is used as a message ID for easier processing with testcase generation"
+                }
+            ]
+        }
+    ]
+}

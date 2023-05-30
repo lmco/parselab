@@ -1,0 +1,133 @@
+[VALID] TEST_U8BIT_LIST_DEP
+00000000: 84 F5 4D 60 35 FA 81 25  D0 50 9A 32 02 39 0E 68  ..M`5..%.P.2.9.h
+00000010: 22 54 2E 2E 36 6D 38 6F  37 A1 5D 98 CB 57 47 2D  "T..6m8o7.]..WG-
+00000020: 76 9B BA 3A BA 29 93 3D  FF 1D A3 E9 21 83 F1 9E  v..:.).=....!...
+00000030: D6 5C ED 97 E1 98 0C 5B  11 06 B6 9F BB 17 E5 74  .\.....[.......t
+00000040: 3A 84 5C 93 5C B9 D9 4D  14 CB 25 F8 80 9D B5 CF  :.\.\..M..%.....
+00000050: FD B9 F3 E0 05 27 8A DD  6A 01 C3 4A 75 F7 1C 96  .....'..j..Ju...
+00000060: 32 82 0D 36 4B 3E 6F A4  55 4E 1D AE D3 B5 8B 21  2..6K>o.UN.....!
+00000070: 61 AC A6 99 63 A4 BA 00  E0 0A B8 5D 50 D8 70 20  a...c......]P.p 
+00000080: 37 81 E5 19 0F                                    7....
+
+[VALID] TEST_U8BIT_LIST
+00000000: E3 7D D4 6C 77                                    .}.lw
+
+[VALID] TEST_U8BIT_ANY
+00000000: 70                                                p
+
+[VALID] TEST_U8BIT_MIN
+00000000: 00                                                .
+
+[VALID] TEST_U8BIT_MID
+00000000: EF                                                .
+
+[VALID] TEST_U8BIT_MAX
+00000000: FF                                                .
+
+[VALID] TEST_I8BIT_ANY
+00000000: 37                                                7
+
+[VALID] TEST_I8BIT_MIN
+00000000: 00                                                .
+
+[VALID] TEST_I8BIT_MID
+00000000: EF                                                .
+
+[VALID] TEST_I8_MAX
+00000000: FF                                                .
+
+[VALID] TEST_U16BIT_ANY
+00000000: 66 A1                                             f.
+
+[VALID] TEST_U16BIT_MIN
+00000000: 00                                                .
+
+[VALID] TEST_U16BIT_MID
+00000000: EF FF                                             ..
+
+[VALID] TEST_U16BIT_MAX
+00000000: FF FF                                             ..
+
+[VALID] TEST_I16BIT_ANY
+00000000: 9B A7                                             ..
+
+[VALID] TEST_I16BIT_MIN
+00000000: 00                                                .
+
+[VALID] TEST_I16BIT_MID
+00000000: EF FF                                             ..
+
+[VALID] TEST_I16BIT_MAX
+00000000: FF FF                                             ..
+
+[VALID] TEST_U24BIT_ANY
+00000000: 98 B8                                             ..
+
+[VALID] TEST_U24BIT_MIN
+00000000: 00                                                .
+
+[VALID] TEST_U24BIT_MID
+00000000: EF FF                                             ..
+
+[VALID] TEST_U24BIT_MAX
+00000000: FF FF                                             ..
+
+[VALID] TEST_I24BIT_ANY
+00000000: 4E A2                                             N.
+
+[VALID] TEST_I24BIT_MIN
+00000000: 00                                                .
+
+[VALID] TEST_I24BIT_MID
+00000000: FF EF FF                                          ...
+
+[VALID] TEST_I24BIT_MAX
+00000000: FF FF FF                                          ...
+
+[VALID] TEST_U32BIT_ANY
+00000000: EC B5 32 5C                                       ..2\
+
+[VALID] TEST_U32BIT_MIN
+00000000: 00                                                .
+
+[VALID] TEST_U32BIT_MID
+00000000: EF FF FF FF                                       ....
+
+[VALID] TEST_U32BIT_MAX
+00000000: FF FF FF FF                                       ....
+
+[VALID] TEST_I32BIT_ANY
+00000000: E4 35 DB 97                                       .5..
+
+[VALID] TEST_I32BIT_MIN
+00000000: 00                                                .
+
+[VALID] TEST_I32BIT_MID
+00000000: EF FF FF FF                                       ....
+
+[VALID] TEST_I32BIT_MAX
+00000000: FF FF FF FF                                       ....
+
+[VALID] TEST_U64BIT_ANY
+00000000: C2 E8 B6 37 97 F5 33 93                           ...7..3.
+
+[VALID] TEST_U64BIT_MIN
+00000000: 00                                                .
+
+[VALID] TEST_U64BIT_MID
+00000000: EF FF FF FF FF FF FF FF                           ........
+
+[VALID] TEST_U64BIT_MAX
+00000000: FF FF FF FF FF FF FF FF                           ........
+
+[VALID] TEST_I64BIT_ANY
+00000000: 5E 1B C4 27 96 EF 45 84                           ^..'..E.
+
+[VALID] TEST_I64BIT_MIN
+00000000: 00                                                .
+
+[VALID] TEST_I64BIT_MID
+00000000: EF FF FF FF FF FF FF FF                           ........
+
+[VALID] TEST_I64BIT_MAX
+00000000: FF FF FF FF FF FF FF FF                           ........

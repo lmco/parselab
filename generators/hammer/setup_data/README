@@ -1,0 +1,38 @@
+This directory is used to implement user-defined functionality to the parser generator
+
+Everything that is currently in this the bare-minimum to run the parser generator with
+the Hammer parser toolkit, however, the user is able to add functionality freely
+
+Below is a description of all the contents of this directory:
+
+actions/
+      This directory is for creating user-defined action functions.  When files with the
+    .act extension are placed in this file, they will be line by line inserted into the
+    parser which is generated.  This can be useful if the user wants to implement logic
+    attached to a given combinator.
+
+directives/
+      This directory is for creating user-defined directives.  Any file in this directory,
+    regardless of extension or name, will be inserted at the top of the parser's header
+    file.  In this directory, 'includes.txt' is already included with the required 
+    include directives to compile the parser.
+
+functions/
+      This directory is for creating user-defined functions.  When files with the .fun
+    extension are placed in this file, they will be line by line inserted into the parser
+    which is generated.  This is useful when the user wants to write functions which will
+    be used in user-generated actions.
+
+objects/
+      This directory is for creating user-defined objects such as structs or enums. This
+    is useful when the user wants to implement custom data types to use in their custom
+    actions or functions
+
+info/
+      This directory contains a few files which add a comment section to some of the generated
+    files.  These comment blocks can be rather large, so feel free to delete them from the
+    generated directrory structure (not src/data/*) before running any generators
+
+Makefile
+      This file is a good base for the makefile necessary to run the parser and any generated
+    test files. 

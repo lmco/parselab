@@ -1,0 +1,191 @@
+{
+    "protocol_types": [
+        {
+            "name": "HEARTBEAT",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "type": "U8",
+                    "value": "253|254"
+                },
+                {
+                    "name": "LENGTH",
+                    "type": "U8",
+                    "value": "9"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "type": "U24",
+                    "value": "0"
+                },
+                {
+                    "name": "CMODE",
+                    "type": "U32"
+                },
+                {
+                    "name": "TYPE",
+                    "type": "U8"
+                },
+                {
+                    "name": "AUTOPILOT",
+                    "type": "U8"
+                },
+                {
+                    "name": "BMODE",
+                    "type": "U8"
+                },
+                {
+                    "name": "SSTATUS",
+                    "type": "U8"
+                },
+                {
+                    "name": "MVERSION",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "PARAM_SET",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "type": "U8",
+                    "value": "253|254"
+                },
+                {
+                    "name": "LENGTH",
+                    "type": "U8",
+                    "value": "23"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "type": "U24",
+                    "value": "23"
+                },
+                {
+                    "name": "TARGET_SYSTEM",
+                    "type": "U8"
+                },
+                {
+                    "name": "TARGET_COMPONENT",
+                    "type": "U8"
+                },
+                {
+                    "name": "PARAM_ID",
+                    "type": "U8[16]",
+                    "value": "[a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p]"
+                },
+                {
+                    "name": "PARAM_VALUE",
+                    "type": "F32"
+                },
+                {
+                    "name": "PARAM_TYPE",
+                    "type": "U8",
+                    "value": "(1,10)"
+                }
+            ]
+        },
+        {
+            "name": "COMMAND_LONG",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "type": "U8",
+                    "value": "253|254"
+                },
+                {
+                    "name": "LENGTH",
+                    "type": "U8",
+                    "value": "33"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "type": "U24",
+                    "value": "76"
+                },
+                {
+                    "name": "TARGET_SYSTEM",
+                    "type": "U8"
+                },
+                {
+                    "name": "TARGET_COMPONENT",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMMAND",
+                    "type": "U16"
+                },
+                {
+                    "name": "CONFIRMATION",
+                    "type": "U8"
+                },
+                {
+                    "name": "PARAMS",
+                    "type": "F32[7]",
+                    "value": "[(0, 5),(10, 15),(20, 25),(30, 35),(40, 45),(50, 55),(60, 65)]"
+                }
+            ]
+        }
+    ]
+}

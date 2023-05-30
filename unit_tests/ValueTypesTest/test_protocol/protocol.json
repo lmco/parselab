@@ -1,0 +1,77 @@
+{
+    "protocol_types": [
+        {
+            "name": "TEST_SINGLE",
+            "fields": [
+                {
+                    "name": "U8_SINGLE",
+                    "type": "U8",
+                    "value": "1"
+                },
+                {
+                    "name": "I8_SINGLE",
+                    "type": "I8",
+                    "value": "1"
+                }
+            ]
+        },
+        {
+            "name": "TEST_RANGE",
+            "fields": [
+                {
+                    "name": "U8_RANGE",
+                    "type": "U8",
+                    "value": "(0, 10)"
+                },
+                {
+                    "name": "I8_RANGE",
+                    "type": "I8",
+                    "value": "(0, 10)"
+                }
+            ]
+        },
+        {
+            "name": "TEST_CHOICE",
+            "fields": [
+                {
+                    "name": "U8_CHOICE",
+                    "type": "U8",
+                    "value": "0|2|4|6"
+                },
+                {
+                    "name": "I8_CHOICE",
+                    "type": "I8",
+                    "value": "0|2|4|6"
+                }
+            ]
+        },
+        {
+            "name": "TEST_LIST",
+            "fields": [
+                {
+                    "name": "U8_list",
+                    "type": "U8[4]",
+                    "value": "[0, 1, 2, 3]"
+                },
+                {
+                    "name": "I8_list",
+                    "type": "I8[4]",
+                    "value": "[0, 1, 2, 3]"
+                },
+                {
+                    "name": "U4_length",
+                    "type": "U4",
+                    "dependee": "True"
+                },
+                {
+                    "name": "U8_list_of_U4",
+                    "type": "U8[U4_length]"
+                },
+                {
+                    "name": "U4_pad",
+                    "type": "U4"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,45 @@
+import os
+
+from generators.ParselabGenerator import ParselabGenerator
+
+class {generator_name}(ParselabGenerator):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.backend_name = {backend_name}
+        self.protocol_name = os.path.basename(self.protocol_dir)
+
+    def generate_parser(self):
+        self.log.info("Generating a %s parser" % (self.backend_name))
+
+        if self.spec_data is None:
+            err_msg = "There is no spec data set! Cannot generate a parser without spec data."
+            self.log.error(err_msg)
+            raise AttributeError(err_msg)
+
+        # TODO: Place necessary logic to generate a parser in your target Data Description Language
+        # TODO: Make sure to return a list of the files which you want to verify the creation of during testing
+        raise NotImplementedError()
+
+    def generate_test(self, testcase_dir, protocol_dir, print_results=False):
+        # TODO: Place necessary logic to generate a test in your target Data Description Language
+        # TODO: Make sure to return a list of the files which you want to verify the creation of during testing
+        raise NotImplementedError()
+
+    def run_test_from_testcase(self, testcase_dir, protocol_dir):
+        # TODO: Place necessary logic to execute the test which was generated with generate_test()
+        # TODO: Execute the test
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_setup_directory():
+        # TODO: Every generator module is expected to, but not required to, have a directory containing a set of
+        #  important files which will be useful when generating parser or test files.  This is referred to as the
+        #  setup directory and is assumed to sit somewhere in parserlab/parselab_generators/<your_generator>/<setup_dir>
+        #  meaning that this funciton would return that path
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_setup_directory_name():
+        # TODO: Return a string representing what you would like to name the directory placed inside the protocol
+        #  directory which contains all of the generated files for this generator module
+        return {backend_name}

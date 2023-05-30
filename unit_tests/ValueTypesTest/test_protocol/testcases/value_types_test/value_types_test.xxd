@@ -1,0 +1,12 @@
+[VALID] TEST_SINGLE
+00000000: 01 01                                             ..
+
+[VALID] TEST_RANGE
+00000000: 05 07                                             ..
+
+[VALID] TEST_CHOICE
+00000000: 04 00                                             ..
+
+[VALID] TEST_LIST
+00000000: 01 02 03 00 01 02 03 A0  39 72 A3 61 DA AA FC 5F  ........9r.a..._
+00000010: 1D 2A                                             .*

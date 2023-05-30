@@ -1,0 +1,568 @@
+{
+    "protocol_types": [
+        {
+            "name": "HEARTBEAT",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "value": "253|254",
+                    "type": "U8"
+                },
+                {
+                    "name": "LENGTH",
+                    "value": "9",
+                    "type": "U8"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "value": "0",
+                    "type": "U24"
+                },
+                {
+                    "name": "CMODE",
+                    "type": "U32"
+                },
+                {
+                    "name": "TYPE",
+                    "type": "U8"
+                },
+                {
+                    "name": "AUTOPILOT",
+                    "type": "U8"
+                },
+                {
+                    "name": "BMODE",
+                    "type": "U8"
+                },
+                {
+                    "name": "SSTATUS",
+                    "type": "U8"
+                },
+                {
+                    "name": "MVERSION",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "SET_MODE",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "value": "253|254",
+                    "type": "U8"
+                },
+                {
+                    "name": "LENGTH",
+                    "value": "6",
+                    "type": "U8"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "value": "11",
+                    "type": "<U24"
+                },
+                {
+                    "name": "CMODE",
+                    "type": "U32"
+                },
+                {
+                    "name": "TSYS",
+                    "type": "U8"
+                },
+                {
+                    "name": "BMODE",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_CURRENT",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "value": "253|254",
+                    "type": "U8"
+                },
+                {
+                    "name": "LENGTH",
+                    "value": "2",
+                    "type": "U8"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "value": "42",
+                    "type": "<U24"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_COUNT",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "value": "243|254",
+                    "type": "U8"
+                },
+                {
+                    "name": "LENGTH",
+                    "value": "5",
+                    "type": "U8"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "value": "44",
+                    "type": "<U24"
+                },
+                {
+                    "name": "COUNT",
+                    "type": "U16"
+                },
+                {
+                    "name": "TSYS",
+                    "type": "U8"
+                },
+                {
+                    "name": "TCOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "MTYPE",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ITEM_REACHED",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "value": "253|254",
+                    "type": "U8"
+                },
+                {
+                    "name": "LENGTH",
+                    "value": "2",
+                    "type": "U8"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "value": "46",
+                    "type": "<U24"
+                },
+                {
+                    "name": "MSEQ",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ACK",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "value": "253|254",
+                    "type": "U8"
+                },
+                {
+                    "name": "LENGTH",
+                    "value": "4",
+                    "type": "U8"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "value": "47",
+                    "type": "<U24"
+                },
+                {
+                    "name": "TSYS",
+                    "type": "U8"
+                },
+                {
+                    "name": "TCOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "TYPE",
+                    "type": "U8"
+                },
+                {
+                    "name": "MTYPE",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_REQUEST_INT",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "value": "253|254",
+                    "type": "U8"
+                },
+                {
+                    "name": "LENGTH",
+                    "value": "15",
+                    "type": "U8"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "value": "51",
+                    "type": "<U24"
+                },
+                {
+                    "name": "MSEQ",
+                    "type": "U16"
+                },
+                {
+                    "name": "TSYS",
+                    "type": "U8"
+                },
+                {
+                    "name": "TCOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "MTYPE",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ITEM_INT",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "value": "253|254",
+                    "type": "U8"
+                },
+                {
+                    "name": "LENGTH",
+                    "value": "38",
+                    "type": "U8"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "value": "73",
+                    "type": "<U24"
+                },
+                {
+                    "name": "PARAMS",
+                    "type": "F32[4]"
+                },
+                {
+                    "name": "X",
+                    "type": "I32"
+                },
+                {
+                    "name": "Y",
+                    "type": "I32"
+                },
+                {
+                    "name": "Z",
+                    "type": "I32"
+                },
+                {
+                    "name": "MSEQ",
+                    "type": "U16"
+                },
+                {
+                    "name": "CMD",
+                    "type": "U16"
+                },
+                {
+                    "name": "TSYS",
+                    "type": "U8"
+                },
+                {
+                    "name": "TCOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "FRAME",
+                    "type": "U8"
+                },
+                {
+                    "name": "CURRENT",
+                    "type": "U8"
+                },
+                {
+                    "name": "ACONTINUE",
+                    "type": "U8"
+                },
+                {
+                    "name": "MTYPE",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "COMMAND_LONG",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "value": "253|254",
+                    "type": "U8"
+                },
+                {
+                    "name": "LENGTH",
+                    "value": "33",
+                    "type": "U8"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "value": "76",
+                    "type": "<U24"
+                },
+                {
+                    "name": "PARAMS",
+                    "type": "F32[7]"
+                },
+                {
+                    "name": "CMD",
+                    "type": "U16"
+                },
+                {
+                    "name": "TSYS",
+                    "type": "U8"
+                },
+                {
+                    "name": "TCOMP",
+                    "type": "U8"
+                }
+            ]
+        },
+        {
+            "name": "COMMAND_ACK",
+            "fields": [
+                {
+                    "name": "MAGIC",
+                    "value": "253|254",
+                    "type": "U8"
+                },
+                {
+                    "name": "LENGTH",
+                    "value": "13",
+                    "type": "U8"
+                },
+                {
+                    "name": "ICOMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMP",
+                    "type": "U8"
+                },
+                {
+                    "name": "SEQ",
+                    "type": "U8"
+                },
+                {
+                    "name": "SYSID",
+                    "type": "U8"
+                },
+                {
+                    "name": "COMPID",
+                    "type": "U8"
+                },
+                {
+                    "name": "MSG_ID",
+                    "value": "77",
+                    "type": "<U24"
+                },
+                {
+                    "name": "CMD",
+                    "type": "U16"
+                },
+                {
+                    "name": "RES",
+                    "type": "U8"
+                }
+            ]
+        }
+    ]
+}

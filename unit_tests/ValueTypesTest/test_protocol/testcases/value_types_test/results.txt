@@ -1,0 +1,4 @@
+0000_TEST_SINGLE - valid
+0001_TEST_RANGE - valid
+0002_TEST_CHOICE - valid
+0003_TEST_LIST - valid

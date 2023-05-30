@@ -1,0 +1,31 @@
+{
+    "protocol_types": [
+        {
+            "name": "UDP_MESSAGE",
+            "fields": [
+                {
+                    "name": "SRC_PORT",
+                    "type": "U16"
+                },
+                {
+                    "name": "DEST_PORT",
+                    "type": "U16"
+                },
+                {
+                    "name": "LENGTH",
+                    "value": "(1,512)",
+                    "type": "U16",
+                    "dependee": true
+                },
+                {
+                    "name": "CHECKSUM",
+                    "type": "U16"
+                },
+                {
+                    "name": "DATA",
+                    "type": "U8[LENGTH]"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,41 @@
+{
+    "protocol_types": [
+        {
+            "name": "ARP",
+            "fields": [
+                {
+                    "name": "HARDWARE_TYPE",
+                    "type": "U16"
+                },
+                {
+                    "name": "PROTOCOL_TYPE",
+                    "type": "U16"
+                },
+                {
+                    "name": "HARDWARE_ADDR_LEN",
+                    "type": "U8"
+                },
+                {
+                    "name": "PROTOCOL_ADDR_LEN",
+                    "type": "U8"
+                },
+                {
+                    "name": "SENDER_HARD_ADDR",
+                    "type": "U48"
+                },
+                {
+                    "name": "SENDER_PROTO_ADDR",
+                    "type": "U32"
+                },
+                {
+                    "name": "TARGET_HARD_ADDR",
+                    "type": "U48"
+                },
+                {
+                    "name": "TARGET_PROTO_ADDR",
+                    "type": "U32"
+                }
+            ]
+        }
+    ]
+}
