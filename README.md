@@ -20,7 +20,7 @@ The tool portion of parseLab is what allows the user to:
 
 The framework portion of parseLab is what allows the user to build custom protocol generators for parsing libraries that are not yet defined by parseLab.
 
-Currently, parseLab ships with support for generating parsers using the [Hammer C-library](https://github.com/UpstandingHackers/hammer), and the [Daedalus Data Definition Language](https://github.com/GaloisInc/daedalus).
+Currently, parseLab ships with support for generating parsers using the [Hammer C-library](https://gitlab.special-circumstanc.es/hammer/hammer), and the [Daedalus Data Definition Language](https://github.com/GaloisInc/daedalus).
 *Note: The Daedalus generator module is very much a limited portion of the Daedalus language.*
 The Hammer generator module can, and should, be used as an example for any custom generator modules that a user might want to create.
 
