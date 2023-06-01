@@ -28,7 +28,7 @@ This section describes the process to install the Hammer library for use with pa
 
 | PACKAGE | EARIEST TESTED VERSION | INSTALL METHOD |
 |---------|------------------------|----------------|
-| hammer | cc733ff | https://github.com/UpstandingHackers/hammer |
+| hammer | cc733ff | https://gitlab.special-circumstanc.es/hammer/hammer |
 | SCons | 4.5.2 | https://scons.org/ |
 
 ### Installation
