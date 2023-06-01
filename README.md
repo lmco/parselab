@@ -11,7 +11,7 @@
 
 # What is parseLab
 
-"parseLab" is the name of a tool/framework created by Lockheed Martin ATL which is designed to generate protocol parsers, fuzz protocol messages, and provide the services necessary for building custom protocol generators.
+"parseLab" is the name of a tool/framework created by Lockheed Martin ATL which is designed to generate protocol parsers, fuzz protocol messages, and provide the services necessary for building custom protocol parser generators.
 The tool portion of parseLab is what allows the user to:
 
 * generate parsers with native parser generators and parsing libraries
