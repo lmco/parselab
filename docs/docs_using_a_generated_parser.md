@@ -84,7 +84,7 @@ For many cases, this boolean return value is sufficient... but for the cases whe
 
 ## Using the Shared Library Functions
 
-If we jump over to the [cpp application example](examples/cpp_application), we can find two python scripts: `simple.py` and `custom.py`.
+If we jump over to the [cpp application example](../examples/cpp_application), we can find two python scripts: `simple.py` and `custom.py`.
 These two scripts represent the two options that users have: 
     simple.py - Leverage the provided `parse()` function and only process boolean return values.
     custom.py - Circumvent the provided `parse()` function and define custom logic for how the parse result should be processed.
