@@ -316,7 +316,7 @@ In this case, we are nesting the ValueRange constraint into a ValueList constrai
 We could have put it inside of a ValueChoice constarint just as easily.
 The limitations for this can be better understood by reading the [protocol specification guide](./protocol_specification_architecture.md)
 
-Feel free to grab a completed version of this [MAVLink protocol specification](examples/tutorial_mavlink/1_protocol.json) in the `parselab/examples/tutorial_mavlink` directory, or go forward and attempt to write it yourself before we move to the next step.
+Feel free to grab a completed version of this [MAVLink protocol specification](../examples/tutorial_mavlink/1_protocol.json) in the `parselab/examples/tutorial_mavlink` directory, or go forward and attempt to write it yourself before we move to the next step.
 
 #### The Strict Attribute
 
