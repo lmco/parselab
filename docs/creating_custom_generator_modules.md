@@ -92,7 +92,7 @@ class ParselabGenerator:
 ```
 
 * `self.log` - This is essentially a wrapper around python's `logging` library, you can find the code for this [here](../src/ParselabLogger.py)
-* `self.spec_data` - `spec_data` is an object of `ProtocolSpecData` type, which contains all of the information for the message types defined in the protocol directory.  If you are unsure about what a protocol directory is, please refer to [the guide for making a protocol directory for UDP](docs/UDP_protocol_specification.md)
+* `self.spec_data` - `spec_data` is an object of `ProtocolSpecData` type, which contains all of the information for the message types defined in the protocol directory.  If you are unsure about what a protocol directory is, please refer to [the guide for making a protocol directory for UDP](./UDP_protocol_specification.md)
 * `self.debug_mode` - This is a boolean flag to tell the generator module whether or not we want the generated parser/test to provide a more verbose output.  Implementation of this is completely user-driven
 * `self.backend_name` - This is a string that can be used by your generator module to reference itself by name, should it need to do that
 * `self.is_stateful` - This is a flag to define whether or not the target protocol is stateful or not.  The value of this should inform the generator module if it needs to consider semantic constaints on sequences of messages or not.  We will not get into that here.
