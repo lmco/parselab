@@ -2,13 +2,13 @@
 
 This guide will walk through the method for creating a custom parseLab Generator module.
 Creating a custom generator module can be an exhaustive task depending on the target backend, so for this case we will only work with a sub-set of the available features exposed by the parseLab framework.
-It is recommended that you read through the generator module for the [Hammer library](generators/hammer/HammerGenerator.py) as a reference for your own generator module.
+It is recommended that you read through the generator module for the [Hammer library](../generators/hammer/HammerGenerator.py) as a reference for your own generator module.
 
 ### What is a Custom Generator Module?
 
 The goal of parseLab is to provide a framework for developers to build a code generator that can generate source code for a target parsing library/language.
-In the case of the [Hammer based generator module](generators/hammer/HammerGenerator.py), it can generate source code in the C langauge which generates logic for parsing byte sequences using the [Hammer parsing library](https://github.com/UpstandingHackers/hammer).
-Anther example is the [Daedalus based generator module](generators/daedalus/DaedalusGenerator.py), it can generate source code in the [Daedalus Data Description Language](https://github.com/GaloisInc/daedalus) which is used also for parsing byte sequences.
+In the case of the [Hammer based generator module](../generators/hammer/HammerGenerator.py), it can generate source code in the C langauge which generates logic for parsing byte sequences using the [Hammer parsing library](https://github.com/UpstandingHackers/hammer).
+Anther example is the [Daedalus based generator module](../generators/daedalus/DaedalusGenerator.py), it can generate source code in the [Daedalus Data Description Language](https://github.com/GaloisInc/daedalus) which is used also for parsing byte sequences.
 
 The generator module has three main responsibilities:
 
@@ -19,7 +19,7 @@ The generator module has three main responsibilities:
 ### Generator Module Interface
 
 Since every implementation of a parseLab generator module will be different, the definition of a module is fairly loose.
-Every generator module will be a derrived class of the [ParselabGenerator](generators/ParselabGenerator.py) class which defines the interface that the custom modules must ahdere to.
+Every generator module will be a derrived class of the [ParselabGenerator](../generators/ParselabGenerator.py) class which defines the interface that the custom modules must ahdere to.
 It is important that these generator modules align with the parent class' interface because we use common driver scripts to dynamically load the target module and run the expected functions and parse expected output.
 
 Along with needing to conform to an interface requirement, there is also universal data that gets passed into each of the generator modules.
@@ -29,7 +29,7 @@ This universal data is the information stored in parseLab which defines the prop
 
 Now that we have explored what a generator module does and the basics of how to implement it, we will create another generator for the [Hammer library](https://github.com/UpstandingHackers/hammer), but this time we will use the python bindings rather than the C library.
 
-We will not go over how to install Hammer or the python bindings here, but please look at [the install guide](docs/install_guide.md) for help on Hammer, then look at the [Hammer repo](https://github.com/UpstandingHackers/hammer) for instructions for setting up the python bindings.
+We will not go over how to install Hammer or the python bindings here, but please look at [the install guide](./install_guide.md) for help on Hammer, then look at the [Hammer repo](https://github.com/UpstandingHackers/hammer) for instructions for setting up the python bindings.
 
 ### Setup Logic
 
@@ -91,8 +91,8 @@ class ParselabGenerator:
         self.set_protocol_directory(protocol_dir)
 ```
 
-* `self.log` - This is essentially a wrapper around python's `logging` library, you can find the code for this [here](src/ParselabLogger.py)
-* `self.spec_data` - `spec_data` is an object of `ProtocolSpecData` type, which contains all of the information for the message types defined in the protocol directory.  If you are unsure about what a protocol directory is, please refer to [the guide for making a protocol directory for UDP](docs/UDP_protocol_specification.md)
+* `self.log` - This is essentially a wrapper around python's `logging` library, you can find the code for this [here](../src/ParselabLogger.py)
+* `self.spec_data` - `spec_data` is an object of `ProtocolSpecData` type, which contains all of the information for the message types defined in the protocol directory.  If you are unsure about what a protocol directory is, please refer to [the guide for making a protocol directory for UDP](./UDP_protocol_specification.md)
 * `self.debug_mode` - This is a boolean flag to tell the generator module whether or not we want the generated parser/test to provide a more verbose output.  Implementation of this is completely user-driven
 * `self.backend_name` - This is a string that can be used by your generator module to reference itself by name, should it need to do that
 * `self.is_stateful` - This is a flag to define whether or not the target protocol is stateful or not.  The value of this should inform the generator module if it needs to consider semantic constaints on sequences of messages or not.  We will not get into that here.
@@ -115,7 +115,7 @@ class PyhammerGenerator(ParselabGenerator):
 ```
 
 This function is going to return a path to a directory that contains any necessary files that we might have for generating the source code for our target backend.
-For example, in the C-based hammer generator, we have a [Makefile](generators/hammer/setup_data/Makefile) which is a generic makefile that can be used to compile the generated code created by the C-based hammer generator module.
+For example, in the C-based hammer generator, we have a [Makefile](../generators/hammer/setup_data/Makefile) which is a generic makefile that can be used to compile the generated code created by the C-based hammer generator module.
 In this case, we can start with an empty file, but we still need to point to something here, even if it is to an empty directory.
 
 ```python
@@ -159,7 +159,7 @@ As shown in the `--list` output, we could have used any of the following:
 
 However, the `--module` argument is not the only required argument for this driver.
 We also need a `--protocol` argument.
-If you don't understand what gets passed in with the `--protocol` argument yet, please walk through the [guide for generating a protocol specification for UDP](docs/UDP_protocol_specification.md).
+If you don't understand what gets passed in with the `--protocol` argument yet, please walk through the [guide for generating a protocol specification for UDP](./UDP_protocol_specification.md).
 For this driver, and the rest of this guide, we will use a UDP specification as our target protocol.
 
 ```bash
@@ -181,12 +181,12 @@ ls ../protocols/udp
 ```
 
 For now, we will ignore what each of these things are.
-If you would like to learn more about the contents of the protocol directory, please look into the guide for [generating a protocol specification for UDP](docs/UDP_protocol_specification.md).
+If you would like to learn more about the contents of the protocol directory, please look into the guide for [generating a protocol specification for UDP](./UDP_protocol_specification.md).
 
 If this successfully generated a new directory `../protocols/udp` and a subdirectory `pyHammer`, we are off to a good start.
 
 Since this is not a guide on how to create a protocol specification, I am not going to go through how to create or modify the `protocol.json` file.
-If you already completed the [UDP protocol specification gude](docs/UDP_protocol_specification.md), then you can ignore this next step because it is a shortcut for some of the steps in that guide.
+If you already completed the [UDP protocol specification gude](./UDP_protocol_specification.md), then you can ignore this next step because it is a shortcut for some of the steps in that guide.
 
 We will now copy the json file from `parselab/examples/protocol.json` into our `protocol.json` in the new `udp/` directory.
 
@@ -707,7 +707,7 @@ For that, we are going to focus on the `generate_test()` method of our generator
 Much like the `generate_parser()` method, our only requirement for this funciton is that we return a list paths to all of the files that we generated within the method.
 Aside from this requirement, whatever it takes to create something that is capable of pushing bytes through the generated parser is fair game.
 
-For our needs, we will need something that imports our generated parsers' python module (`udp_parser.py`) and uses the binary data found in the testcase files (if the concept of testcase files is foreign to you, follow [the guide for generating udp messages with the parseLab testcase generation system](docs/UDP_testcase_generation.md).
+For our needs, we will need something that imports our generated parsers' python module (`udp_parser.py`) and uses the binary data found in the testcase files (if the concept of testcase files is foreign to you, follow [the guide for generating udp messages with the parseLab testcase generation system](./UDP_testcase_generation.md).
 Lets make a two new testcases for the udp protocol that we are working with; one valid test, and one invalid test.
 
 ```bash
@@ -1030,8 +1030,8 @@ For a more discrete representation of completion, running the `unit_tests.py` dr
 * GenerateTest - This checks if your module can generate a test script that consumes data from a testcase and pushes it into a parser function (we know it can)
 * DataTypesTest - This checks if your module can generate parsers for all of the possible data types available in parseLab (we know it can't)
 
-If you would like to get an idea of all the potential of parseLab, please look at the [parseLab generator module for Hammer for C](generators/hammer/HammerGenerator.py).
+If you would like to get an idea of all the potential of parseLab, please look at the [parseLab generator module for Hammer for C](../generators/hammer/HammerGenerator.py).
 
-Lastly, the final version of the `PyhammerGenerator.py` script will be in [parselab/examples/pyHammer/PyhammerGenerator.py](examples/pyHammer/PyhammerGenerator.py) for a reference
+Lastly, the final version of the `PyhammerGenerator.py` script will be in [parselab/examples/pyHammer/PyhammerGenerator.py](../examples/pyHammer/PyhammerGenerator.py) for a reference
 
-To explore more about the inner workings of parseLab and all of the things that will need to be handled by a parseLab module, you'll want to read through the [documentation for the different data types that are used by parseLab which are derived from the protocol specification files](docs/protocol_specification_architecture.md).
+To explore more about the inner workings of parseLab and all of the things that will need to be handled by a parseLab module, you'll want to read through the [documentation for the different data types that are used by parseLab which are derived from the protocol specification files](./protocol_specification_architecture.md).

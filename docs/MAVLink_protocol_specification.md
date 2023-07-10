@@ -1,6 +1,6 @@
 # How to make a parseLab Protocol Specification File for MAVLink
 
-This guide is designed to provide additional information about the protocol specification file than the [UDP protocol specification guide](docs/UDP_protocol_specification.md) and should be treated as a part 2 to be completed after that guide.
+This guide is designed to provide additional information about the protocol specification file than the [UDP protocol specification guide](./UDP_protocol_specification.md) and should be treated as a part 2 to be completed after that guide.
 
 The UDP guide is helpful to get up and running with the basics of parseLab, but this document will explore a couple of features that parseLab provides to aid in the generation of tests and parsers.
 These features will be in the form of additional attributes in the JSON objects that make up the message and field specifiactions.
@@ -95,7 +95,7 @@ And now lets start filling in each of the fields:
 ```
 
 Quick pause to point out the way that we handle the choice operation for value constaints that can allow for different values; here, we are defining "253 or 254" as "253|254".
-You can learn more about different ways of using the choice operator in the [generic protocol specification guide](docs/protocol_specification_architecture.md).
+You can learn more about different ways of using the choice operator in the [generic protocol specification guide](./protocol_specification_architecture.md).
 
 Now moving onto the definition of the next few fields that don't need a call-out, as they are basics as described in the UDP guide.
 
@@ -221,7 +221,7 @@ This attribute actually isn't even known to parseLab.
 The parseLab system that processes the specification files will consume any and all attributes on the field or message specifications.
 If parseLab recognizes the attribute, it will process it accordingly.
 If parseLab does NOT recognize the attribute, it will save it in a dictionary of `custom_data` on the `FieldDef` object.
-This custom data gets passed into the generator modules (see [Creating a Custom Generator Module](docs/creating_custom_generator_modules.md) for more information about generator modules) in the event that a backend needs more data than what parseLab natively provides.
+This custom data gets passed into the generator modules (see [Creating a Custom Generator Module](./creating_custom_generator_modules.md) for more information about generator modules) in the event that a backend needs more data than what parseLab natively provides.
 In this case, we used the `comment` attribute to just hold some information that would be useful to the next reader.
 
 At this point, we have now completed the specificaiton for the `HEARTBEAT` message.
@@ -314,9 +314,9 @@ Since the rest of the fields don't contain new concepts, I will just write out t
 This shows that we are able to nest value some value constraints into others.
 In this case, we are nesting the ValueRange constraint into a ValueList constraint.
 We could have put it inside of a ValueChoice constarint just as easily.
-The limitations for this can be better understood by reading the [protocol specification guide]((docs/protocol_specification_architecture.md)
+The limitations for this can be better understood by reading the [protocol specification guide](./protocol_specification_architecture.md)
 
-Feel free to grab a completed version of this [MAVLink protocol specification](examples/tutorial_mavlink/1_protocol.json) in the `parselab/examples/tutorial_mavlink` directory, or go forward and attempt to write it yourself before we move to the next step.
+Feel free to grab a completed version of this [MAVLink protocol specification](../examples/tutorial_mavlink/1_protocol.json) in the `parselab/examples/tutorial_mavlink` directory, or go forward and attempt to write it yourself before we move to the next step.
 
 #### The Strict Attribute
 
@@ -392,4 +392,4 @@ Here is an example for how we would *ignore* the `HEARTBEAT`'s `MSG_ID` field, r
 
 ## Creating Custom Generators
 
-Now that we have explored the space of making protocol specification, we can walk through the process of [building a custom parseLab generator module](docs/creating_custom_generator_modules.md).
+Now that we have explored the space of making protocol specification, we can walk through the process of [building a custom parseLab generator module](./creating_custom_generator_modules.md).
