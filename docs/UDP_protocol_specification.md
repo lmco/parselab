@@ -267,4 +267,4 @@ cd ${PARSELAB_REPO}/bin
 ```
 
 If this was able to run without errors, then your protocol specification file was created properly!
-To run tests against this generated parser, we will run through how to use the Testcase Generator in [another tutorial](docs/UDP_testcase_generation.md).
+To run tests against this generated parser, we will run through how to use the Testcase Generator in [another tutorial](./UDP_testcase_generation.md).
