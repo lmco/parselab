@@ -9,7 +9,7 @@ For now, we will just leverage the Testcase Generator, and not discuss any parse
 
 ## Using the Testcase Generator
 
-For this document, we are going to use the UDP protocol specification that we created in the [Protocol Specification guide](docs/UDP_protocol_specification.md):
+For this document, we are going to use the UDP protocol specification that we created in the [Protocol Specification guide](./UDP_protocol_specification.md):
 
 
 ```json
@@ -247,4 +247,4 @@ Since a message's validity is defined as the sum of the validity of each field (
 At this point, we have properly generated both valid, and invalid, UDP messages that can be used for testing.
 Because the output of this process is just a series of binary files, you are free to leverage them for whatever process you'd like.
 
-In [another document](docs/UDP_test_generation.md) we will discuss how to leverage parseLab's test code generator which leverages the data produced in this document through the use of a specified parseLab generator module.
+In [another document](./UDP_test_generation.md) we will discuss how to leverage parseLab's test code generator which leverages the data produced in this document through the use of a specified parseLab generator module.
