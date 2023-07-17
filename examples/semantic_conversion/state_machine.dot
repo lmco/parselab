@@ -1,0 +1,27 @@
+digraph G
+{
+    /* Settings */
+    ranksep = 1;
+    nodesep = 2;
+
+    /* Nodes */
+    off;        // state_0
+    default;    // state_1
+    running;    // state_2
+    paused;     // state_3
+    any;        // -- any state
+
+    /* Edges/Triggers */
+    off -> default [label=POWER_ON]
+    
+    default -> off [label=POWER_OFF]
+    default -> running [label=START]
+    
+    running -> paused [label=PAUSE]
+    running -> default [label=STOP]
+    
+    paused -> running [label=START]
+    paused -> default [label=STOP]
+
+    any -> any [label=NOP, nodesep=1]
+}

@@ -1,0 +1,147 @@
+{
+    "protocol_types": [
+        {
+            "name": "NOP",
+            "fields": [
+                {
+                    "name": "STATES",
+                    "type": "U8",
+                    "comment": "This message is valid in all states"
+                },
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "0"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "POWER_ON",
+            "fields": [
+                {
+                    "name": "STATES",
+                    "type": "U8",
+                    "value": "0",
+                    "comment": "This message is only valid in states: 0"
+                },
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "1"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "POWER_OFF",
+            "fields": [
+                {
+                    "name": "STATES",
+                    "type": "U8",
+                    "value": "1",
+                    "comment": "This message is only valid in states: 1"
+                },
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "2"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "START",
+            "fields": [
+                {
+                    "name": "STATES",
+                    "type": "U8",
+                    "value": "1|3",
+                    "comment": "This message is only valid in states: 1, 3"
+                },
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "3"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "STOP",
+            "fields": [
+                {
+                    "name": "STATES",
+                    "type": "U8",
+                    "value": "2|3",
+                    "comment": "This message is only valid in states: 2, 3"
+                },
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "4"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "PAUSE",
+            "fields": [
+                {
+                    "name": "STATES",
+                    "type": "U8",
+                    "value": "2",
+                    "comment": "This message is only valid in states: 2"
+                },
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "5"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        }
+    ]
+}
