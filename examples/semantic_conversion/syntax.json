@@ -1,0 +1,112 @@
+{
+    "protocol_types": [
+        {
+            "name": "NOP",
+            "fields": [
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "0"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "POWER_ON",
+            "fields": [
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "1"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "POWER_OFF",
+            "fields": [
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "2"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "START",
+            "fields": [
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "3"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "STOP",
+            "fields": [
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "4"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        },
+        {
+            "name": "PAUSE",
+            "fields": [
+                {
+                    "name": "MESSAGE_ID",
+                    "type": "U8",
+                    "value": "5"
+                },
+                {
+                    "name": "SENDER_ID",
+                    "type": "U16"
+                },
+                {
+                    "name": "TARGET_ID",
+                    "type": "U16"
+                }
+            ]
+        }
+    ]
+}
