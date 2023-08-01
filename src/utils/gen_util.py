@@ -19,6 +19,7 @@
 repeatedly throughout the parseLab framework '''
 
 from enum import Enum
+import binascii
 import math
 import os
 import random
@@ -55,8 +56,13 @@ mission_states_ext = 'spec'
 # json spec keys
 mission_types_k = "mission_types"
 protocol_types_k = "protocol_types"
+structs_k = "structs"
+struct_name_k = "struct_name"
+member_name_k = "member_name"
+member_type_k = "type"
 name_k = "name"
 msg_spec_name_k = "msg_name"
+struct_members_k = "members"
 fields_k = "fields"
 field_spec_name_k = "field_name"
 field_value_k = "value"
@@ -192,6 +198,20 @@ def get_protocol_spec(protocol_dir):
 
     return protocol_spec
 
+def _convert_int_to_hex_str(value, size):
+    ''' given an integer value, convert it into a hex string '''
+    str_size = (size // 8)
+    str_size += str_size % 8
+    try:
+        hex_val = binascii.hexlify((value).to_bytes(str_size, byteorder='big', signed=True))
+    except Exception as e:
+        print(value)
+        print(size)
+        print(str_size)
+        raise e
+    padded_hex = pad_hex_str(hex_val.hex())
+    return padded_hex
+
 def convert_int_to_hex_str(value, size):
     ''' given an integer value, convert it into a hex string '''
     u_int = (size // 8) * 2
@@ -205,6 +225,20 @@ def pad_hex_str(hex_str):
     lpad_count = len(stripped_hex)%2
     padded_hex = stripped_hex.rjust(lpad_count + len(stripped_hex), '0')
     return padded_hex
+
+def split_dtype_by_list_reference(dtype_string):
+    ''' Return the dtype and the list reference found in the dtype string '''
+    open_count = dtype_string.count(sym_dependency_open)
+    closed_count = dtype_string.count(sym_dependency_close)
+    if open_count != closed_count:
+        raise SyntaxError("Type string invalid: misaligned number of dependency brackets")
+    if open_count > 1:
+        raise SyntaxError("Type string invalid: cannot have more than one opening dependency bracket")
+
+    if open_count == 0:
+        return dtype_string, None
+    dt, list_ref = dtype_string.strip(sym_dependency_open)
+    return dt, list_ref[:-1]
 
 def adv_split(string, delimiter, opening=None, closing=None):
     ''' Split a string into a list based on a supplied delimiter with the ability to ignore the delimeter between
@@ -269,6 +303,8 @@ def extract(string, opening, closing):
     if not in_section:
         raise SyntaxError("Error: extract() - (%s) Closing character never found before end of string" % (string))
 
+    return sections
+
 def carrot(index, prefix):
     ''' Create an error message's carrot pointer
             index:      how many characters to the right should the carrot be placed
@@ -286,6 +322,21 @@ def adv_isalnum(string, allowed_characters=None):
                 continue
             return False
     return True
+
+def adv_isalpha(string, allowed_characters=None):
+    ''' determine if a string is only made up of alphabetical characters or allowed characters '''
+    if allowed_characters is None:
+        return string.isalpha()
+
+    if not isinstance(allowed_characters, (list, str)):
+        raise TypeError("allowed_characters argument must be of types list or str")
+
+    for c in string:
+        if c.isalpha() or c in allowed_characters:
+            continue
+        return False
+    return True
+
 
 def get_bounds(size, signed):
     ''' Determine the upper and lower integer bounds given the number of bits and signedness of the object

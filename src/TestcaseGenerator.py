@@ -61,8 +61,9 @@ class TestcaseGenerator:
             for _ in range(msg_count):
                 list_to_generate.append(msg_types[random.randrange(0, len(msg_types))])
 
-        for msg_type in list_to_generate:
+        for i, msg_type in enumerate(list_to_generate):
             self.log.info("Attempting to generate a%svalid packet for message: %s" % (valid_prefix, msg_type.name))
+            self.log.info("  -> %04d_%s" % (i, msg_type.name))
             packet_data = self.packet_generator.generate_packet_from_msg(msg_type, valid)
             msg_bytes = packet_data[0]
             msg_size = packet_data[1]
@@ -70,6 +71,7 @@ class TestcaseGenerator:
             invalid_info = packet_data[3]
             generated_msg = GeneratedMessage(msg_type, msg_bytes, msg_size, _valid, invalid_info)
             testcase.add_generated_msg(generated_msg)
+            self.log.info("\n%s" % PacketGenerator.hexdump_bytes(msg_bytes, msg_size))
 
         testcase_dirpath = self.create_testcase_dir(name, testcase)
         return testcase_dirpath

@@ -63,6 +63,9 @@ Hammer Data Description Language written in C'''
                         self.value_rules[v] = r
                     self.log.info("  value_rule: %s" % (r))
 
+        for struct in self.spec_data.struct_list:
+            self.__generate_struct_value_rules(struct)
+
         self.log.info("Generated value rules:")
         for v in self.value_rules:
             self.log.info("\t(%s) : [%s]" % (v, self.value_rules[v]))
@@ -205,6 +208,24 @@ variable which cannot be reqmoved if using mission types" % (global_variables_fi
 
         return [parser_filepath, header_filepath]
 
+    def __generate_struct_value_rules(self, struct):
+        self.log.info("Generating sub-parsers for struct: %s" % (struct.name))
+
+        for member in struct.members:
+            self.log.info("Generating sub-parsers for member: %s" % (member.name))
+            if member.dtype.is_struct:
+                self.log.info("Referencing struct - struct should already have rules defined")
+                self.log.info("Continuing...")
+                continue
+            val = member.value_def.value
+            curr_vals, curr_rules = Rule.generate_value_rules(val)
+            for i, _ in enumerate(curr_vals):
+                v = curr_vals[i]
+                r = curr_rules[i]
+                if v not in self.value_rules:
+                    self.value_rules[v] = r
+                self.log.info("  value_rule: %s" % (r))
+
     def __generate_global_variables(self, global_variables_filepath):
         ''' Generate the lines of code for adding global varirables to the generated parser code '''
         self.log.info("Generating the global variables for use in %s" % HammerUtil.generated_parser_filename)
@@ -278,6 +299,27 @@ variable which cannot be reqmoved if using mission types" % (global_variables_fi
             return func_attributes
 
         func_attributes = []
+        for struct in spec_data.struct_list:
+            self.log.info("Generating Validators/Actions for %s" % (struct.name))
+            if gen_util.debug_mode:
+                struct_rule = Rule.generate_struct_rule(struct)
+                attr = Attribute(struct_rule,
+                                 struct_rule.rule_type,
+                                 None,
+                                 None,
+                                 list())
+                func_attributes = try_append_attributes(func_attributes, attr)
+
+            for member in struct.members:
+                member_rule = Rule.generate_field_rule(member)
+                if gen_util.debug_mode:
+                    member_rule.rule_type |= HammerUtil.A_MASK
+                attr = Attribute(member.rule,
+                                 member.rule.rule_type,
+                                 member.dtype,
+                                 member.value_def.value)
+                func_attributes = try_append_attributes(func_attributes, attr)
+
         for message_type in spec_data.message_types:
             self.log.info("Generating Validators/Actions for %s" % (message_type.name))
             if gen_util.debug_mode or message_type.state_ids != []:
@@ -311,12 +353,21 @@ variable which cannot be reqmoved if using mission types" % (global_variables_fi
         self.log.info("Generating the main parser function: init_parser() for use in %s" % \
                         (HammerUtil.generated_parser_filename))
 
-        value_rules, field_rules, message_rules = self.__generate_rule_list(spec_data.message_types)
+        rules = self.__generate_rule_list(spec_data.message_types, spec_data.struct_list)
+        value_rules = rules[0]
+        struct_rules = rules[1]
+        field_rules = rules[2]
+        message_rules = rules[3]
 
         value_rules_formatted = ''
         for rule in value_rules:
             value_rules_formatted += '    %s;\n' % str(rule)
         value_rules_formatted = value_rules_formatted[:-1]
+
+        struct_rules_formatted = ''
+        for rule in struct_rules:
+            struct_rules_formatted += '    %s;\n\n' % str(rule)
+        struct_rules_formatted = struct_rules_formatted[:-1]
 
         field_rules_formatted = ''
         for rule in field_rules:
@@ -336,6 +387,9 @@ variable which cannot be reqmoved if using mission types" % (global_variables_fi
         parser_body = '''    /*    VALUE RULES    */
 {value_rules}
 
+    /*    STRUCT RULES   */
+{struct_rules}
+
     /*    FIELD RULES    */
 {field_rules}
 
@@ -346,6 +400,7 @@ variable which cannot be reqmoved if using mission types" % (global_variables_fi
     {final_rule}
 
     return PARSER;'''.format(value_rules=value_rules_formatted,
+                             struct_rules=struct_rules_formatted,
                              field_rules=field_rules_formatted,
                              message_rules=message_rules_formatted,
                              final_rule=self.__define_final_rule())
@@ -355,14 +410,32 @@ variable which cannot be reqmoved if using mission types" % (global_variables_fi
         return parser_func
 
 
-    def __generate_rule_list(self, message_types):
+    def __generate_rule_list(self, message_types, struct_list):
         ''' Generate all the combinators for the different sub-parsers needed '''
-        field_rules_names = []
-        field_rules = []
-        value_rules = []
+        field_rules_names = list()
+        field_rules = list()
+        struct_rules_names = list()
+        struct_rules = list()
+        value_rules = list()
 
         for v in self.value_rules:
             value_rules.append(self.value_rules[v])
+
+        for struct in struct_list:
+            self.log.info("Generating rules from %s's members" % (struct.name))
+            for member in struct.members:
+                Rule.generate_field_rule(member)
+                member.rule.special_data["member_name"] = member.name
+                if gen_util.debug_mode:
+                    member.rule.rule_type |= HammerUtil.A_MASK
+                if member.rule.name not in struct_rules_names:
+                    struct_rules.append(member.rule)
+                    struct_rules_names.append(member.rule.name)
+            struct_rule = Rule.generate_struct_rule(struct)
+            if gen_util.debug_mode:
+                struct_rule.rule_type |= HammerUtil.A_MASK
+            struct_rules.append(struct_rule)
+            struct_rules_names.append(struct_rule.name)
 
         for msg_type in message_types:
             self.log.info("Generating rules from %s's fields" % (msg_type.name))
@@ -380,7 +453,7 @@ variable which cannot be reqmoved if using mission types" % (global_variables_fi
             Rule.generate_message_type_rule(msg_type)
             message_rules.append(msg_type.rule)
 
-        return value_rules, field_rules, message_rules
+        return value_rules, struct_rules, field_rules, message_rules
 
     def __define_final_rule(self):
         ''' Generate the lines of code for defining the final rule combinator that encompasses all of the sub-parse
@@ -679,6 +752,13 @@ int main() {{
         h_type = ''
         size = dtype.get_size_in_bits()
 
+        if dtype.is_struct:
+            h_type = Rule.generate_struct_rule_name(dtype.struct_ref)
+            if dtype.has_type_dependency:
+                ldep = dtype.dependency.lower()
+                return 'h_length_value(h_get_value("%s"), %s)' % (ldep, h_type)
+            return h_type
+
         if size != -1 and size in HammerUtil.native_hammer_sizes:
             int_type = 'uint'
             if dtype.signed:
@@ -827,6 +907,10 @@ class Rule:
         rules = list()
         vals = list()
 
+        rule_type = HammerUtil.RULE
+        if gen_util.debug_mode:
+            rule_type |= HammerUtil.A_MASK
+
         if isinstance(value, ValueSingle):
             vals.append(value)
             name = Rule.generate_value_name(value)
@@ -837,7 +921,6 @@ class Rule:
             else:
                 rule_str = 'h_int_range(%s, %s, %s)' % \
                     (HammerGenerator.get_dtype_h_type(value.dtype), hex(value.value), hex(value.value))
-            rule_type = HammerUtil.RULE
 
             if value.dtype.is_float:
                 rule_type |= HammerUtil.V_MASK
@@ -845,7 +928,6 @@ class Rule:
             rules.append(Rule(name, rule_str, rule_type))
         elif isinstance(value, ValueRange):
             vals.append(value)
-            rule_type = HammerUtil.RULE
             name = Rule.generate_value_name(value)
             if value.dtype.is_float:
                 rule_type |= HammerUtil.V_MASK
@@ -932,12 +1014,45 @@ class Rule:
         return name
 
     @staticmethod
+    def generate_struct_rule(struct):
+        ''' Generate a Hammer rule which parses a collection of fields (Struct) '''
+        name = Rule.generate_struct_rule_name(struct)
+        rule_type = 0
+        rule_str = 'h_sequence('
+        for member in struct.members:
+            if not member.dtype.is_struct:
+                Rule.generate_field_rule(member)
+                rule_str += '%s, ' % member.rule.name
+            else:
+                struct_rule = Rule.generate_field_rule(member)
+                rule_str += '%s, ' % struct_rule.name
+        rule_str += 'NULL)'
+
+        if gen_util.debug_mode:
+            rule_type |= HammerUtil.A_MASK
+
+        struct_rule = Rule(name, rule_str, rule_type)
+        return struct_rule
+
+    @staticmethod
+    def generate_struct_rule_name(struct):
+        ''' Generate the name for a Hammer rule which parses a Struct '''
+        name = "S_"
+        name += struct.name
+        return name
+
+    @staticmethod
     def generate_field_rule(field):
         ''' Generate a Hammer Rule which parses for the provided parseLab FieldDef '''
         def generate_name(field):
             ''' Generate name for a Hammer Rule which parses for the provided parseLab FieldDef '''
             endianness = ''
             name = "F_"
+
+            if field.dtype.is_struct:
+                name += field.dtype.struct_ref.name
+                return name
+
             if not field.dtype.is_big_endian:
                 endianness = 'LENDIAN_'
 
@@ -960,6 +1075,7 @@ class Rule:
         name = generate_name(field)
 
         rule_str = HammerGenerator.get_dtype_h_type(field.dtype)
+
         if field.value_def.value is not None:
             rule_str = HammerGenerator.generate_valuedef_combinator(field.value_def)
         else:
@@ -1060,7 +1176,6 @@ class Attribute:
             else:
                 err_msg = "Attribute - Cannot generate a state validation function without state ids!"
                 raise Exception(err_msg)
-
 
             return body
 
