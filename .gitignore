@@ -1,0 +1,13 @@
+.DS_STORE
+$~*
+**/__pycache__
+**.so
+*.pyc
+!libparser.so
+*.o
+*.swp
+**/protocols/*
+**/unit_tests/*/test_protocol/hammer/*
+**/unit_tests/*/test_protocol/pyHammer/*
+**/unit_tests/*/test_protocol/daedalus/*
+!**/.gitkeep
