@@ -98,7 +98,7 @@ definition.\n\tNumber of items in list: %d     Size of list: %d\n\t%s" % \
                                 (len(self.value_def.value.contents),
                                  self.dtype.list_count,
                                  self.print_error(True))
-                    raise SyntaxError()
+                    raise SyntaxError(err_msg)
 
             # if dtype is not a list, there should be no lists in the value object
             elif ValueList in types_list:
@@ -125,8 +125,12 @@ dependency.\n\t%s" % self.print_error(True)
     def generate_valid_value(self):
         ''' Generate a value value for this field '''
         if self.value_def.value is not None:
-            return self.value_def.generate_valid_value()
-        return self.dtype.generate_valid_value()
+            generated_value = self.value_def.generate_valid_value()
+            generated_value.set_field(self)
+            return generated_value
+        generated_value = self.dtype.generate_valid_value()
+        generated_value.set_field(self)
+        return generated_value
 
     def generate_invalid_value(self):
         ''' Generate an invalid value for this field '''

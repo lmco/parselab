@@ -1,7 +1,28 @@
+##############################################################################
+## Copyright 2022 Lockheed Martin Corporation                               ##
+##                                                                          ##
+## Licensed under the Apache License, Version 2.0 (the "License");          ##
+## you may not use this file except in compliance with the License.         ##
+## You may obtain a copy of the License at                                  ##
+##                                                                          ##
+##     http://www.apache.org/licenses/LICENSE-2.0                           ##
+##                                                                          ##
+## Unless required by applicable law or agreed to in writing, software      ##
+## distributed under the License is distributed on an "AS IS" BASIS,        ##
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. ##
+## See the License for the specific language governing permissions and      ##
+## limitations under the License.                                           ##
+##############################################################################
+
+
 #!/usr/bin/env python3
 
+'''
+An example of using a Hammer parser in a python script, where the Hammer parser
+is wrapped by another c++ program and the wrapper gets loaded into python.
+'''
+
 import ctypes
-import os
 
 from UDP import UDP
 
@@ -10,6 +31,7 @@ libcustomwrapper_filename = "libcustomparser.so"
 # Since our shared library function will return a struct, we need to define
 # it in python too.
 class udp_msg_t(ctypes.Structure):
+    '''Class holding the data for the UDP message as defined by the Hammer Parser'''
     ubyte_512 = ctypes.c_ubyte * 512
     _fields_ = [('src_port', ctypes.c_ushort),
                 ('dest_port', ctypes.c_ushort),
@@ -18,6 +40,8 @@ class udp_msg_t(ctypes.Structure):
                 ('data', ubyte_512)]
 
 def main():
+    ''' Main Execution Function'''
+
     # Import our warpper library
     libcustomwrapper_path = (libcustomwrapper_filename)
     libcustomwrapper = ctypes.CDLL(libcustomwrapper_path)

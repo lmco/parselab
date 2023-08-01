@@ -1,0 +1,116 @@
+{
+    "structs": [
+        {
+            "struct_name": "vel_t",
+            "members": [
+                {
+                    "name": "X",
+                    "type": "F32"
+                },
+                {
+                    "name": "Y",
+                    "type": "F32"
+                },
+                {
+                    "name": "Z",
+                    "type": "F32"
+                }
+            ]
+        },
+        {
+            "struct_name": "coord_t",
+            "members": [
+                {
+                    "name": "Latitude",
+                    "value": "(0, 360)",
+                    "type": "F32"
+                },
+                {
+                    "name": "Longitude",
+                    "value": "(0, 360)",
+                    "type": "F32"
+                },
+                {
+                    "name": "Altitude",
+                    "type": "F32"
+                }
+            ]
+        },
+        {
+            "struct_name": "orientation_t",
+            "members": [
+                {
+                    "name": "Roll",
+                    "value": "(-180, 180)",
+                    "type": "F32"
+                },
+                {
+                    "name": "Pitch",
+                    "value": "(-180, 180)",
+                    "type": "F32"
+                },
+                {
+                    "name": "Yaw",
+                    "value": "(-180, 180)",
+                    "type": "F32"
+                }
+            ]
+        },
+        {
+            "struct_name": "telem_t",
+            "members": [
+                {
+                    "name": "Velocity",
+                    "type": "vel_t"
+                },
+                {
+                    "name": "Position",
+                    "type": "coord_t"
+                },
+                {
+                    "name": "Orientation",
+                    "type": "orientation_t"
+                }
+            ]
+        },
+        {
+            "struct_name": "waypoint_t",
+            "members": [
+                {
+                    "name": "WaypointType",
+                    "value": "0|1|2|4|8",
+                    "type": "U8"
+                },
+                {
+                    "name": "Position",
+                    "type": "coord_t"
+                }
+            ]
+        }
+    ],
+    "protocol_types": [
+        {
+            "name": "STATUS_MSG",
+            "fields": [
+                {
+                    "name": "ID",
+                    "type": "U8"
+                },
+                {
+                    "name": "Telemetry",
+                    "type": "telem_t"
+                },
+                {
+                    "name": "WaypointsRemaining",
+                    "type": "U8",
+                    "value": "(0, 8)",
+                    "dependee": "true"
+                },
+                {
+                    "name": "WaypointsList",
+                    "type": "waypoint_t[WaypointsRemaining]"
+                }
+            ]
+        }
+    ]
+}

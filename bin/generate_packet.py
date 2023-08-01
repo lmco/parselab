@@ -23,6 +23,7 @@ Generate a single packet instance for a specific message
 import argparse
 
 import context
+from src.ParselabLogger import ParselabLogger
 from src.PacketGenerator import PacketGenerator
 from src.utils import gen_util
 
@@ -41,6 +42,8 @@ PacketGenerator class is expected to be imported into another script and leverag
             help='Use this to denote that the generated packet should be valid according to the protocol spec')
     group.add_argument('--invalid', action='store_true', \
             help='Use this to denote that the packet should be invalid according to the protocol spec')
+    parser.add_argument('--mute', help='Disable log generation', action='store_false')
+    parser.add_argument('--print', help='Print the logs to the terminal', action='store_true')
 
     args = parser.parse_args()
 
@@ -50,8 +53,9 @@ def main():
     ''' Main execution function '''
 
     args = handle_arguments()
+    log = ParselabLogger(print_logs=args.print, create_log=args.mute)
 
-    packet_generator = PacketGenerator(args.protocol)
+    packet_generator = PacketGenerator(args.protocol, log)
     serialized_bytes, serialized_size, is_valid, _ = packet_generator.generate_packet_from_name(args.msg, args.valid)
 
     hexdump = PacketGenerator.hexdump_bytes(serialized_bytes, serialized_size)

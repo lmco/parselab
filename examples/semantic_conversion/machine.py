@@ -1,4 +1,25 @@
+##############################################################################
+## Copyright 2022 Lockheed Martin Corporation                               ##
+##                                                                          ##
+## Licensed under the Apache License, Version 2.0 (the "License");          ##
+## you may not use this file except in compliance with the License.         ##
+## You may obtain a copy of the License at                                  ##
+##                                                                          ##
+##     http://www.apache.org/licenses/LICENSE-2.0                           ##
+##                                                                          ##
+## Unless required by applicable law or agreed to in writing, software      ##
+## distributed under the License is distributed on an "AS IS" BASIS,        ##
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. ##
+## See the License for the specific language governing permissions and      ##
+## limitations under the License.                                           ##
+##############################################################################
+
+
 #!/usr/bin/env python3
+
+'''
+A Module containing the information for a Machine and Controller simulation
+'''
 
 import argparse
 import ctypes
@@ -23,9 +44,9 @@ DEFAULT = 1
 RUNNING = 2
 PAUSED = 3
 
-class Machine:  
+class Machine:
     ''' This class holds the data and functionality for the 'Machine' that
-    is interfaced with through the usage of the MEP (Machine Example 
+    is interfaced with through the usage of the MEP (Machine Example
     Protocol) '''
 
     def __init__(self, uid, use_parser):
@@ -77,15 +98,17 @@ class Controller:
         self.uid = uid
 
     def send_mep_message(self, mep):
+        ''' Send a MEP message to the machine '''
         print("Controller: Sending %s" % (message_ids[mep.message_id]))
-        self.machine.consume_message(mep.serialized) 
+        self.machine.consume_message(mep.serialized)
 
 def main():
+    '''Main Execution Function'''
     parser = argparse.ArgumentParser(description="Machine simulation for MEP protocol")
     parser.add_argument('--parse', action='store_true', help='Should the Machine use the parser?')
     args = parser.parse_args()
 
-    machine = Machine(3, True if args.parse else False)
+    machine = Machine(3, args.parse is not None)
     controller = Controller(machine, 16)
 
     # Create message instances

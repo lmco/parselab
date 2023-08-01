@@ -20,7 +20,7 @@ The tool portion of parseLab is what allows the user to:
 
 The framework portion of parseLab is what allows the user to build custom protocol generators for parsing libraries that are not yet defined by parseLab.
 
-Currently, parseLab ships with support for generating parsers using the [Hammer C-library](https://gitlab.special-circumstanc.es/hammer/hammer), and the [Daedalus Data Definition Language](https://github.com/GaloisInc/daedalus).
+Currently, parseLab ships with support for generating parsers using the [Hammer C-library](https://github.com/UpstandingHackers/hammer), and the [Daedalus Data Definition Language](https://github.com/GaloisInc/daedalus).
 *Note: The Daedalus generator module is very much a limited portion of the Daedalus language.*
 The Hammer generator module can, and should, be used as an example for any custom generator modules that a user might want to create.
 
@@ -61,10 +61,14 @@ For a full understanding of parseLab, it is reccomended to follow the parseLab g
     - With a completed UDP protocol specification, it is now possible to generate valid and invalid instances of UDP messages
 4. [Creation of a Protocol Specification File with MAVLink](docs/MAVLink_protocol_specification.md)
     - Learn more about the functionality of the protocol specification file while creating a new specification for the MAVLink protocol
-5. [Creating a Custom Generator Module with Hammer's Python Bindings](docs/creating_custom_generator_modules.md)
+5. [Using Custom Structs in a Protocol Specification File](docs/structs_in_protocol_specification.md)
+    - Learn how to expand the capabaility of the protocol specification through the use of custom struct definitions.
+6. [Creating a Custom Generator Module with Hammer's Python Bindings](docs/creating_custom_generator_modules.md)
     - With the understanding of what parseLab is capable of with existing generator modules, creating one for a new parsing library is now possible
-6. [Understanding the Inner-Mechanisms of parseLab and Protocol Specification Files](docs/protocol_specification_architecture.md)
+7. [Understanding the Inner-Mechanisms of parseLab and Protocol Specification Files](docs/protocol_specification_architecture.md)
     - When creating a new generator module, it is important to understand the data that is being passed into the modules, this document goes into more details about this effort
+8. [Creating a Semantic Parser with parseLab](docs/syntax_to_semantic_parser.md)
+    - Go through the steps to generate a parseLab syntax parser and learn how to convert it to support semantic parsing
 
 # Quick Start
 

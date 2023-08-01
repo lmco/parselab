@@ -30,7 +30,12 @@ class GeneratedValue():
         self.msg_type_name = ''
 
     def __str__(self):
-        return "%s %s %s" % (self.field.name if self.field else '', self.dtype, self.value)
+        hex_str = ''
+        try:
+            hex_str = hex(self.value)
+        except TypeError:
+            pass
+        return "%s %s %s (%s)" % (self.field.name if self.field else '', self.dtype, self.value, hex_str)
 
     def set_field(self, field):
         ''' Set the generated value's field (FieldDef) '''

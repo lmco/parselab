@@ -1,0 +1,181 @@
+{
+    "mission_types": [
+        {
+            "name": "MISSION_COUNT",
+            "fields": [
+                {
+                    "name": "COUNT",
+                    "value": "4"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ITEM_INT",
+            "fields": [
+                {
+                    "name": "X",
+                    "value": "2515"
+                },
+                {
+                    "name": "Y",
+                    "value": "2141"
+                },
+                {
+                    "name": "Z",
+                    "value": "251"
+                },
+                {
+                    "name": "CMD",
+                    "value": "22"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ITEM_INT",
+            "fields": [
+                {
+                    "name": "X",
+                    "value": "612"
+                },
+                {
+                    "name": "Y",
+                    "value": "156"
+                },
+                {
+                    "name": "Z",
+                    "value": "318"
+                },
+                {
+                    "name": "CMD",
+                    "value": "16"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ITEM_INT",
+            "fields": [
+                {
+                    "name": "X",
+                    "value": "589"
+                },
+                {
+                    "name": "Y",
+                    "value": "140"
+                },
+                {
+                    "name": "Z",
+                    "value": "305"
+                },
+                {
+                    "name": "CMD",
+                    "value": "16"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ITEM_INT",
+            "fields": [
+                {
+                    "name": "X",
+                    "value": "5472"
+                },
+                {
+                    "name": "Y",
+                    "value": "202"
+                },
+                {
+                    "name": "Z",
+                    "value": "683"
+                },
+                {
+                    "name": "CMD",
+                    "value": "21"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ACK"
+        },
+        {
+            "name": "COMMAND_LONG",
+            "fields": [
+                {
+                    "name": "CMD",
+                    "value": "400"
+                }
+            ]
+        },
+        {
+            "name": "HEARTBEAT",
+            "fields": [
+                {
+                    "name": "BMODE",
+                    "value": "209"
+                }
+            ]
+        },
+        {
+            "name": "SET_MODE",
+            "fields": [
+                {
+                    "name": "BMODE",
+                    "value": "10"
+                }
+            ]
+        },
+        {
+            "name": "HEARTBEAT",
+            "fields": [
+                {
+                    "name": "BMODE",
+                    "value": "217"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ITEM_REACHED",
+            "fields": [
+                {
+                    "name": "MSEQ",
+                    "value": "1"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ITEM_REACHED",
+            "fields": [
+                {
+                    "name": "MSEQ",
+                    "value": "2"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ITEM_REACHED",
+            "fields": [
+                {
+                    "name": "MSEQ",
+                    "value": "3"
+                }
+            ]
+        },
+        {
+            "name": "MISSION_ITEM_REACHED",
+            "fields": [
+                {
+                    "name": "MSEQ",
+                    "value": "4"
+                }
+            ]
+        },
+        {
+            "name": "HEARTBEAT",
+            "fields": [
+                {
+                    "name": "BMODE",
+                    "value": "89"
+                }
+            ]
+        }
+    ]
+}

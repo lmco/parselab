@@ -24,6 +24,51 @@ import numpy as np
 from src.utils.GeneratedValue import GeneratedValue
 from src.utils import gen_util
 
+class Struct:
+    ''' This class holds the data and value generation funcitons for the Struct object '''
+    def __init__(self, name, members):
+        self.name = name
+        self.members = members
+
+    def __str__(self):
+        member_string = ''
+        for m in self.members:
+            member_string += "%s, " % m
+        member_string = member_string[:-2]
+        ret = "%s: %s" % (self.name, member_string)
+        return ret
+
+    def generate_valid_values(self):
+        ''' Generate a list of GeneratedValue instances which represents a flat-list of valid values for
+        this struct '''
+        valid_values = list()
+        for member in self.members:
+            if member.dtype.is_struct:
+                list_len = 1
+                if member.dtype.is_list and not member.dtype.has_type_dependency:
+                    list_len = member.dtype.list_count
+                elif member.dtype.has_type_dependency:
+                    if member.dtype.dependency.lower() not in gen_util.dependency_values:
+                        err_msg = "DType::generate_valid_value() - Dependency (%s) is not in list of dependency_value \
+keys: %s.\n Did you mean to put '\"dependee\":\"True\"' in the Dependee's field?" % (member.dependency, \
+gen_util.dependency_values.keys())
+                        raise SyntaxError(err_msg)
+                    try:
+                        list_len = int(gen_util.dependency_values[member.dtype.dependency.lower()])
+                    except:
+                        err_msg = "DType::generate_valid_value() - Cannot convert value (%s) to integer." % \
+                                    (gen_util.dependency_values[member.dtype.dependency])
+                        raise ValueError(err_msg)
+
+                for _ in range(list_len):
+                    member_values = member.dtype.struct_ref.generate_valid_values()
+                    valid_values.extend(member_values)
+            else:
+                valid_value = member.generate_valid_value()
+                valid_values.append(valid_value)
+
+        return valid_values
+
 # Class that holds information abnout the data type
 #   such as the number of bits that are defined
 #           if it is a list or not
@@ -31,19 +76,23 @@ from src.utils import gen_util
 class DType:
     ''' DType holds information about the data type component of a field in the
     protocol spec; information such as the number of bits that are defined. '''
-    def __init__(self, dtype_string, dependee, field_name):
+    def __init__(self, dtype_string, dependee, field_name, struct_list):
         self.signed = False
         self.is_int = False
         self.is_float = False
         self.is_list = False
+        self.is_struct = False
+        self.struct_ref = None
         self.list_count = 0
         self.main_type = ''
         self.dependency = ''
         self.has_type_dependency = False
         self.is_big_endian = True
         self.dtype_string = dtype_string
+        # Do other fields depend on this one?
         self.dependee = dependee
         self.field_name = field_name
+        self.struct_list = struct_list
         self.parse_dtype_string(dtype_string)
         self.bounds = gen_util.get_bounds(self.get_size_in_bits(), self.signed)
 
@@ -64,90 +113,69 @@ class DType:
 
     def parse_dtype_string(self, dtype_string):
         ''' Parse a string to pull out dtype information from it '''
-        # dtype format:
-        #   (req) SINGLE CHARACTER DEFINING TYPE
-        #   (req) MULTIPLE CHARACTER DEFINING SIZE IN BITS
-        #   (opt) BRACKET AROUND INTEGER DEFINING LENGTH OF LIST
-        curr_segment = ''
-        in_dependency_block = False
+        dt_string, list_ref = DType.split_list_reference_from_dtype_string(dtype_string)
+        dt_string, endianness_char = DType.split_endianness_from_dtype_string(dt_string)
+        self.main_type = dt_string
+        self.set_list_info(list_ref)
+        self.is_big_endian = not endianness_char == gen_util.sym_little_endian
 
-        if dtype_string[0] == gen_util.sym_little_endian or dtype_string[0] == gen_util.sym_big_endian:
-            if dtype_string[0] == gen_util.sym_little_endian:
-                self.is_big_endian = False
-
-            dtype_string = dtype_string[1:]
-
-        for i, c in enumerate(dtype_string):
-            dep_str = ''.join([gen_util.sym_dependency_open, gen_util.sym_dependency_close, '_'])
-            if not gen_util.adv_isalnum(c, dep_str):
-                err_msg = "DType - Unexpected gen_util.symbol in field's data type section\n\t%s%s" % \
-                            (dtype_string, gen_util.carrot(i, '\n\t'))
-                raise SyntaxError(err_msg)
-
-            curr_segment += c
-            if c == gen_util.sym_dependency_open:
-                if in_dependency_block:
-                    err_msg = "DType - Cannot have nested dependencies.\n\t%s%s" % \
-                                (dtype_string, gen_util.carrot(i, '\n\t'))
-                    raise SyntaxError(err_msg)
-                in_dependency_block = True
-                if len(curr_segment) > 0:
-                    self.main_type = curr_segment[:-1]
-                    curr_segment = ''
-                else:
-                    err_msg = "DType - Cannot declare a dependency without a main type.  \
-Usage: NAME,VALUIN_TYPE[DEPENDENCY]\n\t%s%s" % (dtype_string, gen_util.carrot(i, '\n\t'))
-                    raise SyntaxError(err_msg)
-                continue
-            if c == gen_util.sym_dependency_close:
-                if not in_dependency_block:
-                    err_msg = "DType - Unexpected termination of dependency.\n\t%s%s" % \
-                                (dtype_string, gen_util.carrot(i, '\n\t'))
-                    #self.log.error(err_msg)
-                    raise SyntaxError(err_msg)
-                in_dependency_block = False
-                if len(curr_segment) > 0:
-                    self.dependency = curr_segment[:-1]
-                    curr_segment = ''
-                else:
-                    err_msg = "DType - Cannot declare an empty dependency.  \
-Usage: NAME,VALUIN_TYPE[DEPENDENCY]\n\t%s%s" % (dtype_string, gen_util.carrot(i, '\n\t'))
-                    #self.log.error(err_msg)
-                    raise SyntaxError(err_msg)
-                continue
-
-        if in_dependency_block:
-            err_msg = "DType - Reached end of dependency definition without a dependency definition \
-terminating character (%s)\n\t%s" % (gen_util.sym_dependency_close, dtype_string)
+        # Is this type a custom struct?
+        struct_ref = self.is_valid_struct_reference()
+        if struct_ref is not None:
+            self.is_struct = True
+            self.struct_ref = struct_ref
+        elif self.is_native_dtype():
+            pass
+        else:
+            err_msg = "Assigned type (%s) is not a native type, or a valid struct reference!" % dtype_string
             raise SyntaxError(err_msg)
-        if self.main_type == '':
-            if curr_segment == '':
-                err_msg = "DType - Reached end of field type definition without declaring a type.\n\t%s" % \
-                            (dtype_string)
-                raise SyntaxError(err_msg)
-            self.main_type = curr_segment
 
-        if self.dependency not in (None, ''):
-            try:
-                int_dependency = int(self.dependency)
-                if int_dependency == 0:
-                    err_msg = "DType - Cannot have a 0-value dependency field.\n\t%s" % dtype_string
-                    raise ValueError(err_msg)
-                self.list_count = int_dependency
-                self.is_list = True
-            except ValueError:
-                if (self.dependency[0].isalpha() or self.dependency[0] == '_') and \
-                        gen_util.adv_isalnum(self.dependency, '_'):
-                    self.has_type_dependency = True
-                    self.is_list = True
-                else:
-                    err_msg = "DType - Dependency has invalid name (%s).  First charcter must be alphabetical \
-or an underscore, and entire string must be alphanumeric (underscores allowed)" % self.dependency
-                    raise ValueError(err_msg)
+        # If it is a dependee, is_int must be true
+        if self.dependee != '' and not self.is_int:
+            err_msg = "DType- (%s) Cannot be a dependee without being of a native integer type." % (dtype_string)
+            raise SyntaxError(err_msg)
 
-        if self.dependee != '' and self.is_native_dtype() and not self.is_int:
-            err_msg = "DType- (%s) Cannot be a dependee without being of an integer type." % self.dtype_string
-            raise Exception(err_msg)
+    def set_list_info(self, list_ref):
+        ''' Process the list_ref, which is inside of the brackets in a data type specification. '''
+        if list_ref is None:
+            return
+        self.is_list = True
+
+        if list_ref.isdigit():
+            self.list_count = int(list_ref)
+            if self.list_count == 0:
+                raise ValueError("List length cannot be zero")
+            if self.list_count < 0:
+                raise ValueError("List length cannot be negative")
+            return
+
+        if gen_util.adv_isalnum(list_ref, '_'):
+            self.has_type_dependency = True
+            self.dependency = list_ref
+            return
+        raise SyntaxError("Improperly formatted list dependency string: %s" % list_ref)
+
+    @staticmethod
+    def is_custom_dtype(dtype_string):
+        ''' Is this dtype a valid struct name:
+        Custom Struct Rules:
+            - No numbers
+            - only letters and underscores'''
+
+        if not gen_util.adv_isalpha(dtype_string, '_'):
+            return False
+        return True
+
+    def is_valid_struct_reference(self):
+        ''' Is this dtype a struct with a valid reference? '''
+        struct_names = (s.name for s in self.struct_list)
+        if DType.is_custom_dtype(self.main_type):
+            if self.main_type not in struct_names:
+                return None
+            for s in self.struct_list:
+                if s.name == self.main_type:
+                    return s
+        return None
 
     def is_native_dtype(self):
         ''' Is this dtype a native type '''
@@ -188,6 +216,30 @@ or an underscore, and entire string must be alphanumeric (underscores allowed)" 
 
         return False
 
+    @staticmethod
+    def split_list_reference_from_dtype_string(dtype_string):
+        ''' Split up the list reference string from the data type string and return a tuple with the results '''
+        dep_open_count = dtype_string.count(gen_util.sym_dependency_open)
+        dep_close_count = dtype_string.count(gen_util.sym_dependency_close)
+        if dep_open_count != dep_close_count:
+            raise SyntaxError("Mismatch in dependency brackets! (%s)" % dtype_string)
+        if dep_open_count > 1:
+            raise SyntaxError("Unexpected number of brackets in type (%s): %d" % (dtype_string, dep_open_count))
+
+        if dep_open_count == 1:
+            dt_string, list_ref = dtype_string.split(gen_util.sym_dependency_open)
+            return dt_string, list_ref[:-1]
+
+        return dtype_string, None
+
+    @staticmethod
+    def split_endianness_from_dtype_string(dtype_string):
+        ''' Split the endianness character from the data type string and resturn a tuple with the results '''
+        first_char = dtype_string[0]
+        if first_char in [gen_util.sym_big_endian, gen_util.sym_little_endian]:
+            return dtype_string[1:], first_char
+        return dtype_string, None
+
     # returns the size in bits, given that this is a native, non custom, data type
     def get_size_in_bits(self):
         ''' Get the size of this data type in bits '''
@@ -202,6 +254,10 @@ or an underscore, and entire string must be alphanumeric (underscores allowed)" 
         ''' Can this DType generate an invalid instance'''
         if self.is_list:
             return True
+        if self.is_struct:
+            for member in self.struct_ref.members:
+                if member.can_generate_invalid_instance():
+                    return True
         return False
 
     def generate_invalid_value(self):
