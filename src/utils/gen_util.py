@@ -29,7 +29,6 @@ import time
 from bitstring import BitArray
 
 ## important symbols for parsing protocol and mission specification
-PARSELAB_TOP = os.path.join('/home', 'parsival', 'parselab')
 pwd = os.path.abspath(os.path.dirname(__file__))
 PARSELAB_TOP = os.path.abspath(os.path.join(pwd, '../../'))
 SRC_DIR = os.path.join(PARSELAB_TOP, 'src')
@@ -203,21 +202,21 @@ def _convert_int_to_hex_str(value, size):
     str_size = (size // 8)
     str_size += str_size % 8
     try:
-        hex_val = binascii.hexlify((value).to_bytes(str_size, byteorder='big', signed=True))
+        hex_val = (value).to_bytes(str_size, byteorder='big', signed=True).hex()
     except Exception as e:
-        print(value)
-        print(size)
-        print(str_size)
+        print(f"Value: {value}, Size: {size}, StrSize: {str_size}")
         raise e
-    padded_hex = pad_hex_str(hex_val.hex())
-    return padded_hex
+    return pad_hex_str(hex_val)
 
 def convert_int_to_hex_str(value, size):
     ''' given an integer value, convert it into a hex string '''
     u_int = (size // 8) * 2
+    if value < 0:
+        # Handle negative values for hex formatting
+        mask = (1 << size) - 1
+        value = value & mask
     hex_val = format(value, '0' + str(u_int) + 'x')
-    padded_hex = pad_hex_str(hex_val)
-    return padded_hex
+    return pad_hex_str(hex_val)
 
 def pad_hex_str(hex_str):
     ''' given a hex string, drop the 0x and pad the string with appropriate 0s '''
@@ -237,8 +236,9 @@ def split_dtype_by_list_reference(dtype_string):
 
     if open_count == 0:
         return dtype_string, None
-    dt, list_ref = dtype_string.strip(sym_dependency_open)
-    return dt, list_ref[:-1]
+    dt = dtype_string.split(sym_dependency_open)[0]
+    list_ref = dtype_string.split(sym_dependency_open)[1].strip(sym_dependency_close)
+    return dt, list_ref
 
 def adv_split(string, delimiter, opening=None, closing=None):
     ''' Split a string into a list based on a supplied delimiter with the ability to ignore the delimeter between
@@ -259,7 +259,7 @@ def adv_split(string, delimiter, opening=None, closing=None):
     curr_segment = ''
     in_ignore = False
 
-    for c in enumerate(string):
+    for _, c in enumerate(string):
         if has_special_segment:
             if c in opening:
                 in_ignore = True
@@ -286,21 +286,25 @@ def extract(string, opening, closing):
     curr_section = ''
     in_section = False
 
-    for c in enumerate(string):
+    for _, c in enumerate(string):
         if c == opening:
             if in_section:
                 raise SyntaxError("Error: extract() - (%s) Nested objects cannot be handled with this function" % \
                                     (string))
             in_section = True
-            curr_section += c
+            curr_section = c
         elif c == closing:
             if not in_section:
                 raise SyntaxError("Error: extract() - (%s) Closing character discovered before opening character" % \
                                     (string))
             in_section = False
+            curr_section += c
             sections.append(curr_section)
+            curr_section = ''
+        elif in_section:
+            curr_section += c
 
-    if not in_section:
+    if in_section:
         raise SyntaxError("Error: extract() - (%s) Closing character never found before end of string" % (string))
 
     return sections
@@ -593,12 +597,12 @@ def string_to_number(string):
     # want to catch everything
     try:
         return int(string)
-    except:
+    except ValueError:
         pass
 
     try:
         return float(string)
-    except:
+    except ValueError:
         pass
 #pylitn:enable=bare-except
     return None
