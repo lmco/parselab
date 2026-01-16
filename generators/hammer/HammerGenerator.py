@@ -235,17 +235,11 @@ variable which cannot be reqmoved if using mission types" % (global_variables_fi
         else:
             global_vars_list = []
 
-        if global_variables_filepath is None:
+        if global_variables_filepath is None or not os.path.isfile(global_variables_filepath):
             return global_vars_list
 
         with open(global_variables_filepath) as f:
-            for line in f:
-                if line[-1] == '\n':
-                    line = line[:-1]
-
-                if line[-1] == ';':
-                    line = line[:-1]
-                global_vars_list.append(line)
+            global_vars_list.extend(line.rstrip(';\n') for line in f)
 
         return global_vars_list
 
@@ -631,10 +625,10 @@ typedef struct {{
 colors_t colors = {{
     .Reset = "\\033[0m",
     .Red = "\\033[0;31m",
-    .Green = "\\033[032m",
-    .Yellow = "\\033[033m",
-    .Blue = "\\033[034m",
-    .Cyan = "\\033[036m",
+    .Green = "\\033[0;32m",
+    .Yellow = "\\033[0;33m",
+    .Blue = "\\033[0;34m",
+    .Cyan = "\\033[0;36m",
 }};
 
 
@@ -857,18 +851,18 @@ int main() {{
     @staticmethod
     def combine_files_into_string(dirpath, file_extension):
         ''' long string concatenating all of the contents of each file which matches the extension '''
-        file_contents = ""
-
-        files = [f for f in os.listdir(dirpath) if \
-            (os.path.isfile(os.path.join(dirpath, f)) and os.path.splitext(f)[1] == file_extension)]
+        if not os.path.isdir(dirpath):
+            return ""
+        
+        file_contents = []
+        files = sorted([f for f in os.listdir(dirpath) if \
+            (os.path.isfile(os.path.join(dirpath, f)) and os.path.splitext(f)[1] == file_extension)])
 
         for file in files:
             with open(os.path.join(dirpath, file)) as f:
-                for line in f:
-                    file_contents += line
-                file_contents += '\n'
+                file_contents.append(f.read().rstrip())
 
-        return file_contents
+        return '\n'.join(file_contents) + ('\n' if file_contents else '')
 
 class Rule:
     ''' A class to contain all of the information contained in a Hammer "Rule", or Combaintor, and how to generate the

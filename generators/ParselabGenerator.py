@@ -39,7 +39,8 @@ class ParselabGenerator:
         self.backend_name = ''
         self.is_stateful = is_stateful
         self.protocol_dir = None
-        self.set_protocol_directory(protocol_dir)
+        if protocol_dir is not None:
+            self.set_protocol_directory(protocol_dir)
 
     @classmethod
     def create_instance(cls, *args, **kwargs):
@@ -49,7 +50,10 @@ class ParselabGenerator:
     def set_protocol_directory(self, protocol_dir):
         ''' Pass this module a path to the target protocol directory '''
         self.log.info("Setting protocol directory: %s" % (protocol_dir))
-        if protocol_dir is None or not os.path.isdir(protocol_dir):
+        if protocol_dir is None:
+            self.protocol_dir = None
+            return
+        if not os.path.isdir(protocol_dir):
             err_msg = "Target protocol directory (%s) is not a valid directory!" % (protocol_dir)
             raise NotADirectoryError(err_msg)
         self.protocol_dir = os.path.abspath(protocol_dir)
