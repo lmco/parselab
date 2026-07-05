@@ -50,7 +50,7 @@ Similarly, if you would like to only generate parsers for the Hammer C-library, 
 
 # Guides/Walkthroughs
 
-For a full understanding of parseLab, it is reccomended to follow the parseLab guides in the following sequence:
+For a full understanding of parseLab, it is recommended to follow the parseLab guides in the following sequence:
 
 1. [Install Guide](docs/install_guide.md)
     - Successful installation allows for following the rest of the guides
@@ -62,7 +62,7 @@ For a full understanding of parseLab, it is reccomended to follow the parseLab g
 4. [Creation of a Protocol Specification File with MAVLink](docs/MAVLink_protocol_specification.md)
     - Learn more about the functionality of the protocol specification file while creating a new specification for the MAVLink protocol
 5. [Using Custom Structs in a Protocol Specification File](docs/structs_in_protocol_specification.md)
-    - Learn how to expand the capabaility of the protocol specification through the use of custom struct definitions.
+    - Learn how to expand the capability of the protocol specification through the use of custom struct definitions.
 6. [Creating a Custom Generator Module with Hammer's Python Bindings](docs/creating_custom_generator_modules.md)
     - With the understanding of what parseLab is capable of with existing generator modules, creating one for a new parsing library is now possible
 7. [Understanding the Inner-Mechanisms of parseLab and Protocol Specification Files](docs/protocol_specification_architecture.md)
@@ -123,6 +123,6 @@ If everything went well, all 10 test messages should have successfully been "cor
 
 ACKNOWLEDGMENT
 This material is based upon work supported by the Defense Advanced Research Projects Agency (DARPA) under Contract No. HR0011-19-C-0077.
-Any opinions, findings and conclusions or recommendations expressed in this material arethose of the author(s) and do not necessarily reflect the views of the Defense Advanced Research Projects Agency (DARPA).
+Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the Defense Advanced Research Projects Agency (DARPA).
 
 Distribution Statement "A" (Approved for Public Release, Distribution Unlimited).
