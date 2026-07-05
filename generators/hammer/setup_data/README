@@ -1,6 +1,6 @@
 This directory is used to implement user-defined functionality to the parser generator
 
-Everything that is currently in this the bare-minimum to run the parser generator with
+Everything that is currently in this directory is the bare minimum required to run the parser generator with
 the Hammer parser toolkit, however, the user is able to add functionality freely
 
 Below is a description of all the contents of this directory:
@@ -31,7 +31,7 @@ objects/
 info/
       This directory contains a few files which add a comment section to some of the generated
     files.  These comment blocks can be rather large, so feel free to delete them from the
-    generated directrory structure (not src/data/*) before running any generators
+    generated directory structure (not src/data/*) before running any generators
 
 Makefile
       This file is a good base for the makefile necessary to run the parser and any generated

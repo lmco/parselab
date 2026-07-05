@@ -1,6 +1,6 @@
 # Installing parseLab
 
-Since parseLab is a framework for developing code generators for different languages/libries, the installation process is a segmented between parseLab proper and the natively available parseLab generator modules.
+Since parseLab is a framework for developing code generators for different languages/libraries, the installation process is segmented between parseLab proper and the natively available parseLab generator modules.
 
 ## parseLab
 
@@ -8,7 +8,7 @@ This section describes the process to install the parseLab framework.
 
 ### Dependencies:
 
-| PACKAGE | EARIEST TESTED VERSION | INSTALL METHOD |
+| PACKAGE | EARLIEST TESTED VERSION | INSTALL METHOD |
 |---------|------------------------|----------------|
 | python3 | 3.6.9 | https://www.python.org/downloads/ |
 | hexdump | 3.3 | pip install hexdump |
@@ -17,7 +17,7 @@ This section describes the process to install the parseLab framework.
 
 ### Installation:
 
-Installation is as simple as cloing te repo and getting all of the dependencies.
+Installation is as simple as cloning the repo and getting all of the dependencies.
 
 
 ## Hammer
@@ -26,7 +26,7 @@ This section describes the process to install the Hammer library for use with pa
 
 ### Dependencies:
 
-| PACKAGE | EARIEST TESTED VERSION | INSTALL METHOD |
+| PACKAGE | EARLIEST TESTED VERSION | INSTALL METHOD |
 |---------|------------------------|----------------|
 | hammer | cc733ff | https://github.com/UpstandingHackers/hammer |
 | SCons | 4.5.2 | https://scons.org/ |
@@ -35,7 +35,7 @@ This section describes the process to install the Hammer library for use with pa
 
 1. Clone the hammer repo in the dependencies.
 2. Run `scons` in the Hammer repo directory
-3. Runs `scons install` in the Hammer repo directory
+3. Run `scons install` in the Hammer repo directory
 4. Ensure libhammer.so is in /usr/local/lib
 5. Modify `.bashrc` to include `/usr/local/lib` in your `LD_LIBRARY_PATH`:
 
@@ -50,7 +50,7 @@ This section describes the process to install the Daedalus Data Description Lang
 
 ### Dependencies
 
-| PACKAGE | EARIEST TESTED VERSION | INSTALL METHOD |
+| PACKAGE | EARLIEST TESTED VERSION | INSTALL METHOD |
 |---------|------------------------|----------------|
 | daedalus | 5581f67 | https://github.com/GaloisInc/daedalus |
 | gmp | 6.1.2-10 | package manager |
@@ -64,7 +64,7 @@ This section describes the process to install the Daedalus Data Description Lang
 1. Install cabal and cabal-install through your package manager
 
 ```bash
-sudo apt install caball-install
+sudo apt install cabal-install
 ```
 2. Put cabal in your path if it is not already
 
@@ -167,4 +167,4 @@ cp ../examples/udp/protocol.json ../protocols/test_UDP/
 # Verify that there was no error response when running the run_test.py driver script
 ```
 
-If the test passes without an error response, both parseLab and Daedalus is properly installed
+If the test passes without an error response, both parseLab and Daedalus are properly installed
